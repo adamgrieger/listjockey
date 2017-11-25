@@ -1,5 +1,14 @@
 {
   "name": "listjockey",
   "app_id": "",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/authorize",
+      "proxyUrl": "http://localhost:3000/authorize"
+    }
+  ]
 }
