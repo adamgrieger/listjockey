@@ -1,40 +1,49 @@
+import 'expose-loader?jQuery!jquery';
+import '../../node_modules/signalr/jquery.signalR.js';
+
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SignalRConfiguration, SignalRModule } from 'ng2-signalr';
 
-import { SpotifyAuthorizationService } from '../common/services/spotify-authorization';
-import { RoomPageModule } from '../pages/room/room.module';
-import { RoomListPage } from '../pages/room-list/room-list';
+import { SpotifyModule } from '../core/api/spotify/spotify.module';
+import { StoreModule } from '../core/redux/store/store.module';
 import { RoomListPageModule } from '../pages/room-list/room-list.module';
-import { MyApp } from './app';
+import { RoomPageModule } from '../pages/room/room.module';
+import { MyApp } from './app.component';
+import { SERVER_HOST } from './config';
+
+const createConfig = () => {
+  const c = new SignalRConfiguration();
+
+  c.url = SERVER_HOST;
+  c.logging = true;
+
+  return c;
+};
 
 @NgModule({
-  declarations: [
-    MyApp
-  ],
+  declarations: [ MyApp ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpModule,
+    SignalRModule.forRoot(createConfig),
+    SpotifyModule,
+    StoreModule,
     RoomListPageModule,
     RoomPageModule
   ],
   bootstrap: [ IonicApp ],
-  entryComponents: [
-    MyApp,
-    RoomListPage
-  ],
+  entryComponents: [ MyApp ],
   providers: [
     StatusBar,
     SplashScreen,
     InAppBrowser,
-    SpotifyAuthorizationService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

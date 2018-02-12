@@ -1,20 +1,20 @@
-import { SpotifyAuthorizationService } from '../../common/services/spotify-authorization';
-import { Http } from '@angular/http';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+
+import { SessionActions } from '../../core/redux/session/services/actions.service';
 
 @IonicPage()
 @Component({
   selector: 'page-room-list',
-  templateUrl: 'room-list.html',
+  templateUrl: 'room-list.html'
 })
 export class RoomListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: Http,
-              private spotifyAuth: SpotifyAuthorizationService, private iab: InAppBrowser) { }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private session: SessionActions
+  ) { }
 
-  requestAuthorization(): void {
-    this.spotifyAuth.requestAuthorization();
-  }
+  private login = () => this.session.login();
 }
