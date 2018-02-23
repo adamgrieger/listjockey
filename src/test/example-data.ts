@@ -1,4 +1,5 @@
 export const accessToken = 'access token';
+export const expiresOn = 30000;
 export const refreshToken = 'refresh token';
 export const error = 'error';
 
