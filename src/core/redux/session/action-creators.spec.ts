@@ -1,3 +1,5 @@
+import 'jest';
+
 import * as data from '../../../test/example-data';
 import * as creators from './action-creators';
 import * as types from './action-types';
