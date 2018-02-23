@@ -19,8 +19,8 @@ export const SESSION_INITIAL_STATE: SessionState = {
 
 const load = (state: SessionState, action: models.LoadAction): SessionState => {
   const _accessToken = localStorage.getItem('accessToken');
-  const _refreshToken = localStorage.getItem('refreshToken');
   const _expiresOn = +localStorage.getItem('expiresOn');
+  const _refreshToken = localStorage.getItem('refreshToken');
 
   return {
     ...state,
@@ -41,6 +41,10 @@ const loginSuccess = (state: SessionState, action: models.LoginSuccessAction): S
   expiresOn: action.payload.expiresOn
 });
 
+const logout = (state: SessionState, action: models.LogoutAction) => {
+  return SESSION_INITIAL_STATE;
+};
+
 export const sessionReducer: Reducer<SessionState> = (
   state: SessionState = SESSION_INITIAL_STATE,
   action: models.SessionAction
@@ -49,6 +53,7 @@ export const sessionReducer: Reducer<SessionState> = (
     case types.LOAD: return load(state, action);
     case types.LOGIN_FAILURE: return loginFailure(state, action);
     case types.LOGIN_SUCCESS: return loginSuccess(state, action);
+    case types.LOGOUT: return logout(state, action);
     default: return state;
   }
 };

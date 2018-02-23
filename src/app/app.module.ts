@@ -10,8 +10,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SignalRConfiguration, SignalRModule } from 'ng2-signalr';
 
-import { SpotifyModule } from '../core/api/spotify/spotify.module';
-import { StoreModule } from '../core/redux/store/store.module';
+import { CoreModule } from '../core/core.module';
 import { RoomListPageModule } from '../pages/room-list/room-list.module';
 import { RoomPageModule } from '../pages/room/room.module';
 import { MyApp } from './app.component';
@@ -33,8 +32,7 @@ const createConfig = () => {
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     SignalRModule.forRoot(createConfig),
-    SpotifyModule,
-    StoreModule,
+    CoreModule,
     RoomListPageModule,
     RoomPageModule
   ],

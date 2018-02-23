@@ -5,8 +5,6 @@ import { SpotifyAuthorizationService } from './services/authorization.service';
 
 @NgModule({
   imports: [ HttpModule ],
-  providers: [
-    SpotifyAuthorizationService
-  ]
+  providers: [ SpotifyAuthorizationService ]
 })
 export class SpotifyModule { }

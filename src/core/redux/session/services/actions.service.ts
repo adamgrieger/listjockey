@@ -9,19 +9,15 @@ export class SessionActions {
 
   constructor(private ngRedux: NgRedux<AppState>) { }
 
-  load() {
-    this.ngRedux.dispatch(creators.load());
-  }
+  public load = () => this.ngRedux.dispatch(creators.load());
 
-  login() {
-    this.ngRedux.dispatch(creators.login());
-  }
+  public login = () => this.ngRedux.dispatch(creators.login());
 
-  updateToken(refreshToken: string) {
-    this.ngRedux.dispatch(creators.updateToken(refreshToken));
-  }
+  public logout = () => this.ngRedux.dispatch(creators.logout());
 
-  updateUser(accessToken: string) {
-    this.ngRedux.dispatch(creators.updateUser(accessToken));
-  }
+  public updateToken = (refreshToken: string) =>
+    this.ngRedux.dispatch(creators.updateToken(refreshToken))
+
+  public updateUser = (accessToken: string) =>
+    this.ngRedux.dispatch(creators.updateUser(accessToken))
 }

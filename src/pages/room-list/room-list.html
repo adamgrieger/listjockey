@@ -2,11 +2,35 @@
   <ion-navbar>
     <ion-title>Available Rooms</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="login()">Login</button>
+      <div *ngIf="!(accessToken$ | async); else logoutButton">
+        <button ion-button (click)="login()">Login</button>
+      </div>
+      <ng-template #logoutButton>
+        <button ion-button (click)="logout()">Logout</button>
+      </ng-template>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <room-list-item title="ListJockey Testing"></room-list-item>
+  <p>Access Token: {{ accessToken$ | async }}</p>
+  <p>Expires On: {{ expiresOn$ | async }}</p>
+  <p>RefreshToken: {{ refreshToken$ | async }}</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm>
+        <room-list-item></room-list-item>
+      </ion-col>
+      <ion-col col-12 col-sm>
+        <room-list-item></room-list-item>
+      </ion-col>
+      <ion-col col-12 col-sm>
+        <room-list-item></room-list-item>
+      </ion-col>
+      <ion-col col-12 col-sm>
+        <room-list-item></room-list-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

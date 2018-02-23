@@ -15,7 +15,7 @@ export class SpotifyAuthorizationService {
   constructor(private http: Http, private signalr: SignalR) { }
 
   public getLoginUrl = () =>
-    this.http.get(`${ SERVER_HOST }/api/auth/login`)
+    this.http.get(`${ SERVER_HOST }/auth/login`)
       .map(res => res.text())
 
   public onAuthTokensSent = () =>

@@ -23,6 +23,8 @@ export const loginSuccess = (
   }
 });
 
+export const logout = (): models.LogoutAction => ({ type: types.LOGOUT });
+
 export const updateToken = (refreshToken: string): models.UpdateTokenAction => ({
   type: types.UPDATE_TOKEN,
   payload: refreshToken

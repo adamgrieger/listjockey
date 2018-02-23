@@ -5,6 +5,7 @@ export type SessionAction =
   | LoginAction
   | LoginFailureAction
   | LoginSuccessAction
+  | LogoutAction
   | UpdateTokenAction
   | UpdateTokenFailureAction
   | UpdateTokenSuccessAction
@@ -33,6 +34,10 @@ export type LoginSuccessAction = {
     expiresOn: number;
     refreshToken: string;
   }
+};
+
+export type LogoutAction = {
+  type: typeof types.LOGOUT
 };
 
 export type UpdateTokenAction = {

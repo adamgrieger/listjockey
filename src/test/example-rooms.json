@@ -1,0 +1,28 @@
+[
+  {
+    "id": 0,
+    "title": "Adam's Test Room",
+    "description": "Adam's room for client-side testing.",
+    "host": {
+      "username": "agrieger",
+      "display_name": "Adam Grieger",
+      "avatar_url": "https://lorem.ipsum/agrieger.png"
+    },
+    "listeners": 1,
+    "genres": [
+      "underground hip hop",
+      "indie rock",
+      "indietronica",
+      "future garage",
+      "idm"
+    ],
+    "now_playing": {
+      "artist": "Madvillain",
+      "song": "Accordian",
+      "album": {
+        "title": "Madvillainy",
+        "cover_art": "https://lorem.ipsum/madvillain/madvillainy.png"
+      }
+    }
+  }
+]
