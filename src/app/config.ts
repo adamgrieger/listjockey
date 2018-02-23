@@ -1,1 +1,1 @@
-export const SERVER_HOST = 'http://localhost:56828';
+export const SERVER_HOST = 'http://api.listjockey.xyz/';
