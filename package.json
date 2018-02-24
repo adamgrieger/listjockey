@@ -12,7 +12,8 @@
     "ionic:serve": "ionic-app-scripts serve",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand"
+    "test:ci": "jest --runInBand",
+    "vsts:browser": "ionic cordova build browser"
   },
   "dependencies": {
     "@angular/common": "4.1.3",
