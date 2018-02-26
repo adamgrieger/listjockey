@@ -1,11 +1,11 @@
 import { Reducer } from 'redux';
 
-import { SimplifiedRoom } from '../../api/listjockey/models/room-list.models';
+import { RoomListing } from '../../api/listjockey/models/room-list.models';
 import { GET_ROOMS_FAILURE, GET_ROOMS_SUCCESS } from './action-types';
 import { GetRoomsFailureAction, GetRoomsSuccessAction, RoomListAction } from './models';
 
 export type RoomListState = {
-  rooms: SimplifiedRoom[],
+  rooms: RoomListing[],
   error: Error
 };
 

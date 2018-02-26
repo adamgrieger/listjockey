@@ -2,28 +2,26 @@
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="https://picsum.photos/100/?random">
+      <img src="https://picsum.photos/50/?random">
     </ion-avatar>
-    <h2>ListJockey Test Room</h2>
-    <p>Hosted by Adam Grieger</p>
+    <h2>{{ listing.title }}</h2>
+    <p>Hosted by {{ listing.host.display_name }}</p>
   </ion-item>
 
-  <img src="https://picsum.photos/500/?random">
+  <img src="https://picsum.photos/300/?random">
+
+  <ion-card-content>
+    <p>{{ listing.description }}</p>
+  </ion-card-content>
 
   <ion-row>
     <ion-col>
-      <ion-chip>
-        <ion-label>indie rock</ion-label>
-      </ion-chip>
-      <ion-chip>
-        <ion-label>hip hop</ion-label>
+      <ion-chip *ngFor="let genre of listing.genres">
+        <ion-label>{{ genre }}</ion-label>
       </ion-chip>
     </ion-col>
     <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
+      <button ion-button (click)="join(listing.id)">Join</button>
     </ion-col>
   </ion-row>
 

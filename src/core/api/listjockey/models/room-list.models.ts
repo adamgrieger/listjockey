@@ -1,4 +1,4 @@
-export interface SimplifiedRoom {
+export interface RoomListing {
   id: number;
   title: string;
   description: string;
@@ -17,8 +17,4 @@ export interface SimplifiedRoom {
       cover_art: string;
     };
   };
-}
-
-export interface Room extends SimplifiedRoom {
-
 }

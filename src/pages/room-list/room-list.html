@@ -19,17 +19,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-12 col-sm>
-        <room-list-item></room-list-item>
-      </ion-col>
-      <ion-col col-12 col-sm>
-        <room-list-item></room-list-item>
-      </ion-col>
-      <ion-col col-12 col-sm>
-        <room-list-item></room-list-item>
-      </ion-col>
-      <ion-col col-12 col-sm>
-        <room-list-item></room-list-item>
+      <ion-col *ngFor="let room of rooms$ | async" col-3>
+        <room-list-item [listing]="room" (onJoin)="joinRoom($event)"></room-list-item>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,5 +1,5 @@
 import * as types from './action-types';
-import { SimplifiedRoom } from '../../api/listjockey/models/room-list.models';
+import { RoomListing } from '../../api/listjockey/models/room-list.models';
 
 export type RoomListAction =
   | GetRoomsAction
@@ -18,5 +18,5 @@ export type GetRoomsFailureAction = {
 
 export type GetRoomsSuccessAction = {
   type: typeof types.GET_ROOMS_SUCCESS,
-  payload: SimplifiedRoom[]
+  payload: RoomListing[]
 };

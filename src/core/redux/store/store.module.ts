@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { DevToolsExtension, NgRedux, NgReduxModule } from 'ng2-redux';
+import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { createEpicMiddleware } from 'redux-observable';
 
-import { environment } from '../../../environments/environment';
 import { ROOM_LIST_INITIAL_STATE } from '../room-list/reducers';
 import { RoomListModule } from '../room-list/room-list.module';
 import { RoomListEpics } from '../room-list/services/epics.service';
@@ -19,7 +18,6 @@ export class StoreModule {
 
   constructor(
     private store: NgRedux<AppState>,
-    private devTools: DevToolsExtension,
     private session: SessionEpics,
     private roomList: RoomListEpics
   ) {
@@ -29,22 +27,14 @@ export class StoreModule {
       roomList: ROOM_LIST_INITIAL_STATE
     };
 
-    const middleware = createEpicMiddleware(
-      session.getCombinedEpics(),
-      roomList.getCombinedEpics()
-    );
-
-    let enhancers = [ ];
-
-    if (!environment.production) {
-      enhancers = [ devTools.enhancer() ];
-    }
+    const sessionMiddleware = createEpicMiddleware(session.getCombinedEpics());
+    const roomListMiddleware = createEpicMiddleware(roomList.getCombinedEpics());
 
     store.configureStore(
       rootReducer,
       INITIAL_STATE,
-      [ middleware ],
-      enhancers
+      [ sessionMiddleware, roomListMiddleware ],
+      [ ]
     );
   }
 }

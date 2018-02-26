@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+
+import { RoomListing } from '../../../core/api/listjockey/models/room-list.models';
 
 @Component({
   selector: 'room-list-item',
@@ -6,7 +8,10 @@ import { Component, Input } from '@angular/core';
 })
 export class RoomListItem {
 
-  @Input() title: string;
+  @Input() listing: RoomListing;
+  @Output() onJoin = new EventEmitter<number>();
 
   constructor() { }
+
+  private join = (id: number) => this.onJoin.emit(id);
 }

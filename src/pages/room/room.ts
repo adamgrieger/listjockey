@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the RoomPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IonicPage, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -15,11 +8,5 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RoomPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RoomPage');
-  }
-
+  constructor(private navParams: NavParams) { }
 }

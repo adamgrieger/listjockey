@@ -42,14 +42,14 @@ export class SessionEpics {
     action$.ofType(LOGIN)
       .switchMap((action: LoginAction) =>
         this.spotify.getLoginUrl()
-          .do(url => window.open(url))
-          .concatMap(() =>
+          .map(url => window.open(url))
+          .concatMap(window =>
             this.spotify.onAuthTokensSent()
               .do(tokens => {
-                window.close();
                 localStorage.setItem('accessToken', tokens.accessToken);
                 localStorage.setItem('expiresOn', `${ tokens.expiresOn }`);
                 localStorage.setItem('refreshToken', tokens.refreshToken);
+                window.close();
               })
               .map(tokens =>
                 loginSuccess(
