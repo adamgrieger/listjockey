@@ -21,7 +21,11 @@
       </ion-chip>
     </ion-col>
     <ion-col>
-      <button ion-button (click)="join(listing.id)">Join</button>
+      <button ion-button
+        (click)="join(listing.id)"
+        [disabled]="!(accessToken$ | async)">
+        Join
+      </button>
     </ion-col>
   </ion-row>
 
