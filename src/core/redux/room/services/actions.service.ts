@@ -9,5 +9,5 @@ export class RoomActions {
 
   constructor(private ngRedux: NgRedux<AppState>) { }
 
-  public getRoom = () => this.ngRedux.dispatch(creators.getRoom());
+  public getRoom = (id: number) => this.ngRedux.dispatch(creators.getRoom(id));
 }

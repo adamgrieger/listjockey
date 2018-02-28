@@ -8,7 +8,8 @@ export type RoomAction =
   ;
 
 export type GetRoomAction = {
-  type: typeof GET_ROOM
+  type: typeof GET_ROOM,
+  id: number
 };
 
 export type GetRoomFailureAction = {
