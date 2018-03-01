@@ -3,7 +3,7 @@ export interface PlayQueue {
 }
 
 export interface PlayQueueItem {
-  title: string;
+  song: string;
   artist: string;
   album: {
     title: string;

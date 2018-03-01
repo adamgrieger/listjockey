@@ -1,15 +1,12 @@
-import { PlayQueueItem, PlayQueue } from './play-queue.models';
+import { PlayQueue, PlayQueueItem } from './play-queue.models';
+import { User } from './user.models';
 
 export interface Room {
   id: number;
   title: string;
   description: string;
   isTemporary: boolean;
-  host: {
-    username: string;
-    display_name: string;
-    avatar_url: string;
-  };
+  host: User;
   listeners: number;
   genres: string[];
   now_playing: PlayQueueItem;

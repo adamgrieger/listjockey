@@ -1,20 +1,12 @@
+import { PlayQueueItem } from './play-queue.models';
+import { User } from './user.models';
+
 export interface RoomListing {
   id: number;
   title: string;
   description: string;
-  host: {
-    username: string;
-    display_name: string;
-    avatar_url: string;
-  };
+  host: User;
   listeners: number;
   genres: string[];
-  now_playing: {
-    artist: string;
-    song: string;
-    album: {
-      title: string;
-      cover_art: string;
-    };
-  };
+  now_playing: PlayQueueItem;
 }
