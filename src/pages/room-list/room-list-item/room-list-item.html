@@ -8,25 +8,21 @@
     <p>Hosted by {{ listing.host.display_name }}</p>
   </ion-item>
 
-  <img src="https://picsum.photos/300/?random">
+  <ion-item>
+    <ion-thumbnail item-start>
+      <img src="https://picsum.photos/100/?random">
+    </ion-thumbnail>
+    <h2>Madvillain</h2>
+    <p>Accordian</p>
+    <button ion-button clear item-end
+      (click)="join(listing.id)"
+      [disabled]="!(accessToken$ | async)">
+      Join
+    </button>
+  </ion-item>
 
   <ion-card-content>
     <p>{{ listing.description }}</p>
   </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <ion-chip *ngFor="let genre of listing.genres">
-        <ion-label>{{ genre }}</ion-label>
-      </ion-chip>
-    </ion-col>
-    <ion-col>
-      <button ion-button
-        (click)="join(listing.id)"
-        [disabled]="!(accessToken$ | async)">
-        Join
-      </button>
-    </ion-col>
-  </ion-row>
 
 </ion-card>

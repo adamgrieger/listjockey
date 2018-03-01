@@ -13,13 +13,9 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Access Token: {{ accessToken$ | async }}</p>
-  <p>Expires On: {{ expiresOn$ | async }}</p>
-  <p>RefreshToken: {{ refreshToken$ | async }}</p>
-
   <ion-grid>
     <ion-row>
-      <ion-col *ngFor="let room of rooms$ | async" col-3>
+      <ion-col *ngFor="let room of rooms$ | async" col-sm-12 col-md-6 col-lg-4 col-xl-3>
         <room-list-item [listing]="room" (onJoin)="joinRoom($event)"></room-list-item>
       </ion-col>
     </ion-row>
