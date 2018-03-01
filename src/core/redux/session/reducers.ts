@@ -42,6 +42,10 @@ const loginSuccess = (state: SessionState, action: models.LoginSuccessAction): S
 });
 
 const logout = (state: SessionState, action: models.LogoutAction) => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('expiresOn');
+  localStorage.removeItem('refreshToken');
+
   return SESSION_INITIAL_STATE;
 };
 
