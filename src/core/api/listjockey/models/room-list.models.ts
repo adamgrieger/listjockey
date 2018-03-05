@@ -10,3 +10,9 @@ export interface RoomListing {
   genres: string[];
   now_playing: PlayQueueItem;
 }
+
+export interface CreateRoom {
+  title: string;
+  description: string;
+  isTemporary: boolean;
+}

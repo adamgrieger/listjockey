@@ -1,0 +1,23 @@
+<ion-card>
+  <form [formGroup]="room" (ngSubmit)="createRoom()">
+    <ion-card-header>Create a Room</ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input type="text"  placeholder="Title" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text"  placeholder="Description" formControlName="description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Temporary</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <button ion-button item-end type="submit"
+          [disabled]="!(room.valid && (accessToken$ | async))">
+          Create Room
+        </button>
+      </ion-item>
+    </ion-card-content>
+  </form>
+</ion-card>

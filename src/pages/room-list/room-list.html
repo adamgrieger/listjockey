@@ -15,6 +15,9 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
+      <ion-col col-sm-12 col-md-6 col-lg-4 col-xl-3>
+        <create-room-form (onCreateRoom)="createRoom($event)"></create-room-form>
+      </ion-col>
       <ion-col *ngFor="let room of rooms$ | async" col-sm-12 col-md-6 col-lg-4 col-xl-3>
         <room-list-item [listing]="room" (onJoin)="joinRoom($event)"></room-list-item>
       </ion-col>

@@ -1,8 +1,19 @@
 import { Reducer } from 'redux';
 
 import { RoomListing } from '../../api/listjockey/models/room-list.models';
-import { GET_ROOMS_FAILURE, GET_ROOMS_SUCCESS } from './action-types';
-import { GetRoomsFailureAction, GetRoomsSuccessAction, RoomListAction } from './models';
+import {
+  CREATE_ROOM_FAILURE,
+  CREATE_ROOM_SUCCESS,
+  GET_ROOMS_FAILURE,
+  GET_ROOMS_SUCCESS
+} from './action-types';
+import {
+  CreateRoomFailureAction,
+  CreateRoomSuccessAction,
+  GetRoomsFailureAction,
+  GetRoomsSuccessAction,
+  RoomListAction
+} from './models';
 
 export type RoomListState = {
   rooms: RoomListing[],
@@ -22,6 +33,20 @@ const getRoomsSuccess = (state: RoomListState, action: GetRoomsSuccessAction): R
   ...state, rooms: action.payload
 });
 
+const createRoomFailure = (
+  state: RoomListState,
+  action: CreateRoomFailureAction
+): RoomListState => ({
+  ...state, error: action.payload
+});
+
+const createRoomSuccess = (
+  state: RoomListState,
+  action: CreateRoomSuccessAction
+): RoomListState => ({
+  ...state, rooms: [...state.rooms, action.payload]
+});
+
 export const roomListReducer: Reducer<RoomListState> = (
   state: RoomListState = ROOM_LIST_INITIAL_STATE,
   action: RoomListAction
@@ -29,6 +54,8 @@ export const roomListReducer: Reducer<RoomListState> = (
   switch (action.type) {
     case GET_ROOMS_FAILURE: return getRoomsFailure(state, action);
     case GET_ROOMS_SUCCESS: return getRoomsSuccess(state, action);
+    case CREATE_ROOM_FAILURE: return createRoomFailure(state, action);
+    case CREATE_ROOM_SUCCESS: return createRoomSuccess(state, action);
     default: return state;
   }
 };

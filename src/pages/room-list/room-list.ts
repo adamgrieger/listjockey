@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
-import { RoomListing } from '../../core/api/listjockey/models/room-list.models';
+import { RoomListing, CreateRoom } from '../../core/api/listjockey/models/room-list.models';
 import { RoomListActions } from '../../core/redux/room-list/services/actions.service';
 import { SessionActions } from '../../core/redux/session/services/actions.service';
 import { AppState } from '../../core/redux/store/models';
@@ -17,9 +17,6 @@ import { RoomPage } from '../room/room';
 export class RoomListPage implements OnInit {
 
   private accessToken$: Observable<string>;
-  private expiresOn$: Observable<number>;
-  private refreshToken$: Observable<string>;
-
   private rooms$: Observable<RoomListing[]>;
 
   constructor(
@@ -32,9 +29,6 @@ export class RoomListPage implements OnInit {
 
   ngOnInit() {
     this.accessToken$ = this.ngRedux.select(state => state.session.accessToken);
-    this.expiresOn$ = this.ngRedux.select(state => state.session.expiresOn);
-    this.refreshToken$ = this.ngRedux.select(state => state.session.refreshToken);
-
     this.rooms$ = this.ngRedux.select(state => state.roomList.rooms);
 
     this.roomList.getRooms();
@@ -44,6 +38,7 @@ export class RoomListPage implements OnInit {
 
   private logout = () => this.session.logout();
 
-  private joinRoom = (roomId: number) =>
-    this.navCtrl.push(RoomPage, { id: roomId })
+  private joinRoom = (roomId: number) => this.navCtrl.push(RoomPage, { id: roomId });
+
+  private createRoom = (room: CreateRoom) => this.roomList.createRoom(room);
 }
