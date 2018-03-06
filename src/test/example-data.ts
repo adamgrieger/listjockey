@@ -1,6 +1,11 @@
-export const accessToken = 'access token';
-export const expiresOn = 30000;
-export const refreshToken = 'refresh token';
+import { AuthTokens } from '../core/api/spotify/models/authorization.models';
+
+export const tokens: AuthTokens = {
+  accessToken: 'access token',
+  expiresOn: 30000,
+  refreshToken: 'refresh token'
+};
+
 export const error = 'error';
 
 export const userObjectPrivate: SpotifyApi.UserObjectPrivate = {
