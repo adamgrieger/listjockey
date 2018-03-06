@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
-import { RoomListing, CreateRoom } from '../../core/api/listjockey/models/room-list.models';
+import { CreateRoom, RoomListing } from '../../core/api/listjockey/models/room-list.models';
 import { RoomListActions } from '../../core/redux/room-list/services/actions.service';
 import { SessionActions } from '../../core/redux/session/services/actions.service';
 import { AppState } from '../../core/redux/store/models';
@@ -28,15 +28,15 @@ export class RoomListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.accessToken$ = this.ngRedux.select(state => state.session.accessToken);
+    this.accessToken$ = this.ngRedux.select(state => state.session.tokens.accessToken);
     this.rooms$ = this.ngRedux.select(state => state.roomList.rooms);
 
     this.roomList.getRooms();
   }
 
-  private login = () => this.session.login();
+  private login = () => this.session.spotifyLogin();
 
-  private logout = () => this.session.logout();
+  private logout = () => this.session.spotifyLogout();
 
   private joinRoom = (roomId: number) => this.navCtrl.push(RoomPage, { id: roomId });
 

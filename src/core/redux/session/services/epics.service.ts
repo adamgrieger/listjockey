@@ -15,9 +15,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { SpotifyAuthorizationService } from '../../../api/spotify/services/authorization.service';
 import { AppState } from '../../store/models';
-import { loginFailure, loginSuccess } from '../action-creators';
-import { LOAD, LOGIN } from '../action-types';
-import { LoadAction, LoginAction, SessionAction } from '../models';
+import { spotifyLoginFailure, spotifyLoginSuccess } from '../action-creators';
+import { LoadAction, SessionAction, SpotifyLoginAction } from '../action-models';
+import { LOAD, SPOTIFY_LOGIN } from '../action-types';
 
 @Injectable()
 export class SessionEpics {
@@ -30,17 +30,17 @@ export class SessionEpics {
     action$.ofType(LOAD)
       .switchMap((action: LoadAction) => {
         const session = store.getState().session;
-        const expiresOn = session.expiresOn;
+        const expiresOn = session.tokens.expiresOn;
         const tokenExpired = expiresOn < Date.now();
 
         if (tokenExpired) {
-          return Observable.of(loginFailure(Error('Token expired')));
+          return Observable.of(spotifyLoginFailure(Error('Token expired')));
         }
       })
 
   public login = (action$: ActionsObservable<SessionAction>, store: Store<AppState>) =>
-    action$.ofType(LOGIN)
-      .switchMap((action: LoginAction) =>
+    action$.ofType(SPOTIFY_LOGIN)
+      .switchMap((action: SpotifyLoginAction) =>
         this.spotify.getLoginUrl()
           .map(url => window.open(url))
           .concatMap(window =>
@@ -51,15 +51,9 @@ export class SessionEpics {
                 localStorage.setItem('refreshToken', tokens.refreshToken);
                 window.close();
               })
-              .map(tokens =>
-                loginSuccess(
-                  tokens.accessToken,
-                  tokens.expiresOn,
-                  tokens.refreshToken
-                )
-              )
-              .catch(err => Observable.of(loginFailure(err)))
+              .map(tokens => spotifyLoginSuccess(tokens))
+              .catch(err => Observable.of(spotifyLoginFailure(err)))
           )
-          .catch(err => Observable.of(loginFailure(err)))
+          .catch(err => Observable.of(spotifyLoginFailure(err)))
       )
 }

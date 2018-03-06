@@ -21,12 +21,12 @@ export class CreateRoomForm implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.accessToken$ = this.ngRedux.select(state => state.session.accessToken);
+    this.accessToken$ = this.ngRedux.select(state => state.session.tokens.accessToken);
 
     this.room = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      isTemporary: ['']
+      isTemporary: [false]
     });
   }
 

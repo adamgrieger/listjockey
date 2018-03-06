@@ -19,7 +19,7 @@ export class RoomListItem implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>) { }
 
   ngOnInit() {
-    this.accessToken$ = this.ngRedux.select(state => state.session.accessToken);
+    this.accessToken$ = this.ngRedux.select(state => state.session.tokens.accessToken);
   }
 
   private join = (id: number) => this.onJoin.emit(id);
