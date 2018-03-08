@@ -62,7 +62,6 @@ export interface SpotifyLogoutAction {
 
 export interface ListJockeyLoginAction {
   type: typeof types.LISTJOCKEY_LOGIN;
-  payload: User;
 }
 
 export interface ListJockeyLoginFailureAction {
@@ -116,7 +115,6 @@ export interface UpdateTokenSuccessAction {
 
 export interface UpdateUserAction {
   type: typeof types.UPDATE_USER;
-  payload: string;
 }
 
 export interface UpdateUserFailureAction {

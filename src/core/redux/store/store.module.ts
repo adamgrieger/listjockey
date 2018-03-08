@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgRedux, NgReduxModule, DevToolsExtension } from 'ng2-redux';
+import { DevToolsExtension, NgRedux, NgReduxModule } from 'ng2-redux';
 import { createEpicMiddleware } from 'redux-observable';
 
 import { ROOM_LIST_INITIAL_STATE } from '../room-list/reducers';

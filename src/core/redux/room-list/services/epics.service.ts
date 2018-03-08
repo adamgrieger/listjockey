@@ -6,6 +6,7 @@ import { ActionsObservable, combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 
 import { ListJockeyRoomListService } from '../../../api/listjockey/services/room-list.service';
+import { AppState } from '../../store/models';
 import {
   createRoomFailure,
   createRoomSuccess,
@@ -14,7 +15,6 @@ import {
 } from '../action-creators';
 import { CREATE_ROOM, GET_ROOMS } from '../action-types';
 import { CreateRoomAction, GetRoomsAction, RoomListAction } from '../models';
-import { RoomListState } from '../reducers';
 
 @Injectable()
 export class RoomListEpics {
@@ -23,7 +23,7 @@ export class RoomListEpics {
 
   public getCombinedEpics = () => combineEpics(this.getRooms, this.createRoom);
 
-  public getRooms = (action$: ActionsObservable<RoomListAction>, store: Store<RoomListState>) =>
+  public getRooms = (action$: ActionsObservable<RoomListAction>, store: Store<AppState>) =>
     action$.ofType(GET_ROOMS)
       .switchMap((action: GetRoomsAction) =>
         this.roomList.getRooms()
@@ -31,11 +31,14 @@ export class RoomListEpics {
           .catch(err => Observable.of(getRoomsFailure(err)))
       )
 
-  public createRoom = (action$: ActionsObservable<RoomListAction>, store: Store<RoomListState>) =>
+  public createRoom = (action$: ActionsObservable<RoomListAction>, store: Store<AppState>) =>
     action$.ofType(CREATE_ROOM)
-      .switchMap((action: CreateRoomAction) =>
-        this.roomList.createRoom(action.payload)
+      .switchMap((action: CreateRoomAction) => {
+        const username = store.getState().session.user.id;
+
+        return this.roomList.createRoom({ ...action.payload, username })
           .map(room => createRoomSuccess(room))
-          .catch(err => Observable.of(createRoomFailure(err)))
+          .catch(err => Observable.of(createRoomFailure(err)));
+      }
       )
 }

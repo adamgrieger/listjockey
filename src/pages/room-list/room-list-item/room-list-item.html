@@ -2,7 +2,7 @@
 
   <ion-item>
     <ion-avatar item-start>
-      <img src="https://picsum.photos/50/?random">
+      <img src="{{ listing.host.avatar_url }}">
     </ion-avatar>
     <h2>{{ listing.title }}</h2>
     <p>Hosted by {{ listing.host.display_name }}</p>
@@ -12,8 +12,8 @@
     <ion-thumbnail item-start>
       <img src="https://picsum.photos/100/?random">
     </ion-thumbnail>
-    <h2>Madvillain</h2>
-    <p>Accordian</p>
+    <h2>{{ listing.now_playing?.title }}</h2>
+    <p>{{ listing.now_playing?.artist }}</p>
     <button ion-button clear item-end
       (click)="join(listing.id)"
       [disabled]="!(accessToken$ | async)">

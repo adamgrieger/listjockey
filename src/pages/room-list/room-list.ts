@@ -34,9 +34,9 @@ export class RoomListPage implements OnInit {
     this.roomList.getRooms();
   }
 
-  private login = () => this.session.spotifyLogin();
+  private login = () => this.session.login();
 
-  private logout = () => this.session.spotifyLogout();
+  private logout = () => this.session.logout();
 
   private joinRoom = (roomId: number) => this.navCtrl.push(RoomPage, { id: roomId });
 

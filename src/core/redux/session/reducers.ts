@@ -4,10 +4,11 @@ import * as types from './action-types';
 import * as models from './action-models';
 import { AuthTokens } from '../../api/spotify/models/authorization.models';
 
-export type SessionState = {
-  tokens: AuthTokens,
-  error: Error
-};
+export interface SessionState {
+  tokens: AuthTokens;
+  user: SpotifyApi.CurrentUsersProfileResponse;
+  error: Error;
+}
 
 export const SESSION_INITIAL_STATE: SessionState = {
   tokens: {
@@ -15,6 +16,7 @@ export const SESSION_INITIAL_STATE: SessionState = {
     expiresOn: 0,
     refreshToken: null
   },
+  user: null,
   error: null
 };
 
@@ -57,6 +59,22 @@ const spotifyLogout = (state: SessionState, action: models.SpotifyLogoutAction) 
   return SESSION_INITIAL_STATE;
 };
 
+const updateUserFailure = (
+  state: SessionState,
+  action: models.UpdateUserFailureAction
+): SessionState => ({
+  ...state,
+  error: action.payload
+});
+
+const updateUserSuccess = (
+  state: SessionState,
+  action: models.UpdateUserSuccessAction
+): SessionState => ({
+  ...state,
+  user: action.payload
+});
+
 export const sessionReducer: Reducer<SessionState> = (
   state: SessionState = SESSION_INITIAL_STATE,
   action: models.SessionAction
@@ -66,6 +84,8 @@ export const sessionReducer: Reducer<SessionState> = (
     case types.SPOTIFY_LOGIN_FAILURE: return spotifyLoginFailure(state, action);
     case types.SPOTIFY_LOGIN_SUCCESS: return spotifyLoginSuccess(state, action);
     case types.SPOTIFY_LOGOUT: return spotifyLogout(state, action);
+    case types.UPDATE_USER_FAILURE: return updateUserFailure(state, action);
+    case types.UPDATE_USER_SUCCESS: return updateUserSuccess(state, action);
     default: return state;
   }
 };

@@ -12,6 +12,7 @@ export interface RoomListing {
 }
 
 export interface CreateRoom {
+  username: string;
   title: string;
   description: string;
   isTemporary: boolean;

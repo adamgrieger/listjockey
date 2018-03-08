@@ -35,7 +35,7 @@ export const spotifyLogout = (): models.SpotifyLogoutAction => ({ type: types.SP
 // | ListJockey Login |
 // +------------------+
 
-export const listjockeyLogin = (user: User) => ({ type: types.LISTJOCKEY_LOGIN });
+export const listjockeyLogin = () => ({ type: types.LISTJOCKEY_LOGIN });
 
 export const listjockeyLoginFailure = (error: Error): models.ListJockeyLoginFailureAction => ({
   type: types.LISTJOCKEY_LOGIN_FAILURE,
@@ -50,7 +50,7 @@ export const listjockeyLoginSuccess = (): models.ListJockeyLoginSuccessAction =>
 // | ListJockey Logout |
 // +-------------------+
 
-export const listjockeyLogout = (user: User) => ({ type: types.LISTJOCKEY_LOGOUT });
+export const listjockeyLogout = () => ({ type: types.LISTJOCKEY_LOGOUT });
 
 export const listjockeyLogoutFailure = (error: Error) => ({
   type: types.LISTJOCKEY_LOGOUT_FAILURE,
@@ -82,9 +82,8 @@ export const updateTokenSuccess = (accessToken: string): models.UpdateTokenSucce
 // | Update User |
 // +-------------+
 
-export const updateUser = (accessToken: string): models.UpdateUserAction => ({
-  type: types.UPDATE_USER,
-  payload: accessToken
+export const updateUser = (): models.UpdateUserAction => ({
+  type: types.UPDATE_USER
 });
 
 export const updateUserFailure = (error: Error): models.UpdateUserFailureAction => ({
