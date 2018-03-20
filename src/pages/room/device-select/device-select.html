@@ -1,0 +1,12 @@
+<ion-list>
+  <ion-item>
+    <ion-label>Device</ion-label>
+    <ion-select>
+      <ion-option
+        *ngFor="let device of devices$ | async"
+        (click)="selectDevice(device)">
+        {{ device.name }}
+      </ion-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
