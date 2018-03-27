@@ -16,4 +16,6 @@ export class ListJockeyRoomListService {
   public createRoom = (room: CreateRoom) =>
     this.http.post(`${ SERVER_HOST }/room`, room)
       .map(res => <RoomListing>(res.json()))
+
+  public deleteRoom = (id: number) => this.http.delete(`${ SERVER_HOST }/room/delete/${ id }`);
 }

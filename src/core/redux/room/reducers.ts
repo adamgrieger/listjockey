@@ -1,33 +1,63 @@
 import { Reducer } from 'redux';
+
 import { Room } from '../../api/listjockey/models/room.models';
-import { GetRoomFailureAction, GetRoomSuccessAction, RoomAction } from './models';
-import { GET_ROOM_FAILURE, GET_ROOM_SUCCESS } from './action-types';
+import { User } from '../../api/listjockey/models/user.models';
+import * as models from './action-models';
+import * as types from './action-types';
 
 export type RoomState  = {
   current: Room,
+  users: User[],
   error: Error
 };
 
 export const ROOM_INITIAL_STATE: RoomState = {
   current: null,
+  users: null,
   error: null
 };
 
-const getRoomFailure = (state: RoomState, action: GetRoomFailureAction): RoomState => ({
-  ...state, error: action.payload
+const getRoomFailure = (state: RoomState, action: models.GetRoomFailureAction): RoomState => ({
+  ...state,
+  error: action.payload
 });
 
-const getRoomSuccess = (state: RoomState, action: GetRoomSuccessAction): RoomState => ({
-  ...state, current: action.payload
+const getRoomSuccess = (state: RoomState, action: models.GetRoomSuccessAction): RoomState => ({
+  ...state,
+  current: action.payload
+});
+
+const getUsersFailure = (state: RoomState, action: models.GetUsersFailureAction): RoomState => ({
+  ...state,
+  error: action.payload
+});
+
+const getUsersSuccess = (state: RoomState, action: models.GetUsersSuccessAction): RoomState => ({
+  ...state,
+  users: action.payload
+});
+
+const joinRoomFailure = (state: RoomState, action: models.JoinRoomFailureAction): RoomState => ({
+  ...state,
+  error: action.payload
+});
+
+const leaveRoomFailure = (state: RoomState, action: models.LeaveRoomFailureAction): RoomState => ({
+  ...state,
+  error: action.payload
 });
 
 export const roomReducer: Reducer<RoomState> = (
   state: RoomState = ROOM_INITIAL_STATE,
-  action: RoomAction
+  action: models.RoomAction
 ): RoomState => {
   switch (action.type) {
-    case GET_ROOM_FAILURE: return getRoomFailure(state, action);
-    case GET_ROOM_SUCCESS: return getRoomSuccess(state, action);
+    case types.GET_ROOM_FAILURE: return getRoomFailure(state, action);
+    case types.GET_ROOM_SUCCESS: return getRoomSuccess(state, action);
+    case types.GET_USERS_FAILURE: return getUsersFailure(state, action);
+    case types.GET_USERS_SUCCESS: return getUsersSuccess(state, action);
+    case types.JOIN_ROOM_FAILURE: return joinRoomFailure(state, action);
+    case types.LEAVE_ROOM_FAILURE: return leaveRoomFailure(state, action);
     default: return state;
   }
 };
