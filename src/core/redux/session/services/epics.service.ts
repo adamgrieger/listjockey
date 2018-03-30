@@ -1,4 +1,5 @@
 import 'rxjs/add/observable/concat';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/concatMap';
@@ -38,19 +39,22 @@ export class SessionEpics {
       this.spotifyLogin,
       this.listjockeyLogin,
       this.listjockeyLogout,
+      this.updateToken,
       this.updateUser
     )
 
   public load = (action$: ActionsObservable<models.SessionAction>, store: Store<AppState>) =>
     action$.ofType(types.LOAD)
       .switchMap((action: models.LoadAction) => {
-        const session = store.getState().session;
-        const expiresOn = session.tokens.expiresOn;
-        const tokenExpired = expiresOn < Date.now();
+        const tokens = store.getState().session.tokens;
 
-        this.globals.spotify.setAccessToken(session.tokens.accessToken);
+        this.globals.spotify.setAccessToken(tokens.accessToken);
 
-        return Observable.of(creators.updateUser());
+        if (tokens.accessToken) {
+          return Observable.of(creators.updateToken());
+        } else {
+          return Observable.empty();
+        }
       })
 
   public spotifyLogin = (
@@ -63,13 +67,13 @@ export class SessionEpics {
           .map(url => window.open(url))
           .concatMap(window =>
             this.spotifyAuth.onAuthTokensSent()
+              .do(tokens => this.globals.spotify.setAccessToken(tokens.accessToken))
               .do(tokens => {
                 localStorage.setItem('accessToken', tokens.accessToken);
                 localStorage.setItem('expiresOn', `${ tokens.expiresOn }`);
                 localStorage.setItem('refreshToken', tokens.refreshToken);
                 window.close();
               })
-              .do(tokens => this.globals.spotify.setAccessToken(tokens.accessToken))
               .concatMap(tokens =>
                 Observable.concat(
                   Observable.of(creators.spotifyLoginSuccess(tokens)),
@@ -94,8 +98,8 @@ export class SessionEpics {
           display_name: user.display_name ? user.display_name : user.id,
           avatar_url: user.images[0].url
         })
-        .mapTo(creators.listjockeyLoginSuccess())
-        .catch(err => Observable.of(creators.listjockeyLoginFailure(err)));
+          .mapTo(creators.listjockeyLoginSuccess())
+          .catch(err => Observable.of(creators.listjockeyLoginFailure(err)));
       })
 
   public listjockeyLogout = (
@@ -109,13 +113,30 @@ export class SessionEpics {
         return this.listjockeyUser.removeUser(user.id)
           .concatMap(() =>
             Observable.concat(
-              Observable.of(
-                creators.listjockeyLogoutSuccess(),
-                creators.spotifyLogout()
-              )
+              Observable.of(creators.listjockeyLogoutSuccess()),
+              Observable.of(creators.spotifyLogout())
             )
           )
           .catch(err => Observable.of(creators.listjockeyLogoutFailure(err)));
+      })
+
+  public updateToken = (
+    action$: ActionsObservable<models.SessionAction>,
+    store: Store<AppState>
+  ) =>
+    action$.ofType(types.UPDATE_TOKEN)
+      .switchMap((action: models.UpdateTokenAction) => {
+        const refreshToken = store.getState().session.tokens.refreshToken;
+
+        return this.spotifyAuth.updateToken(refreshToken)
+          .do(token => this.globals.spotify.setAccessToken(token.accessToken))
+          .concatMap(token =>
+            Observable.concat(
+              Observable.of(creators.updateTokenSuccess(token)),
+              Observable.of(creators.updateUser())
+            )
+          )
+          .catch(err => Observable.of(creators.updateTokenFailure(err)));
       })
 
   public updateUser = (
@@ -131,6 +152,9 @@ export class SessionEpics {
               Observable.of(creators.listjockeyLogin())
             )
           )
-          .catch(err => Observable.of(creators.updateUserFailure(err)))
+          .catch(err => {
+            console.log(err);
+            return Observable.of(creators.updateUserFailure(err));
+          })
       )
 }

@@ -1,5 +1,5 @@
 import { User } from '../../api/listjockey/models/user.models';
-import { AuthTokens } from '../../api/spotify/models/authorization.models';
+import { AuthTokens, RefreshedToken } from '../../api/spotify/models/authorization.models';
 import * as models from './action-models';
 import * as types from './action-types';
 
@@ -35,7 +35,9 @@ export const spotifyLogout = (): models.SpotifyLogoutAction => ({ type: types.SP
 // | ListJockey Login |
 // +------------------+
 
-export const listjockeyLogin = () => ({ type: types.LISTJOCKEY_LOGIN });
+export const listjockeyLogin = (): models.ListJockeyLoginAction => ({
+  type: types.LISTJOCKEY_LOGIN
+});
 
 export const listjockeyLoginFailure = (error: Error): models.ListJockeyLoginFailureAction => ({
   type: types.LISTJOCKEY_LOGIN_FAILURE,
@@ -50,22 +52,25 @@ export const listjockeyLoginSuccess = (): models.ListJockeyLoginSuccessAction =>
 // | ListJockey Logout |
 // +-------------------+
 
-export const listjockeyLogout = () => ({ type: types.LISTJOCKEY_LOGOUT });
+export const listjockeyLogout = (): models.ListJockeyLogoutAction => ({
+  type: types.LISTJOCKEY_LOGOUT
+});
 
-export const listjockeyLogoutFailure = (error: Error) => ({
+export const listjockeyLogoutFailure = (error: Error): models.ListJockeyLogoutFailureAction => ({
   type: types.LISTJOCKEY_LOGOUT_FAILURE,
   payload: error
 });
 
-export const listjockeyLogoutSuccess = () => ({ type: types.LISTJOCKEY_LOGOUT_SUCCESS });
+export const listjockeyLogoutSuccess = (): models.ListJockeyLogoutSuccessAction => ({
+  type: types.LISTJOCKEY_LOGOUT_SUCCESS
+});
 
 // +--------------+
 // | Update Token |
 // +--------------+
 
-export const updateToken = (refreshToken: string): models.UpdateTokenAction => ({
-  type: types.UPDATE_TOKEN,
-  payload: refreshToken
+export const updateToken = (): models.UpdateTokenAction => ({
+  type: types.UPDATE_TOKEN
 });
 
 export const updateTokenFailure = (error: Error): models.UpdateTokenFailureAction => ({
@@ -73,9 +78,9 @@ export const updateTokenFailure = (error: Error): models.UpdateTokenFailureActio
   payload: error
 });
 
-export const updateTokenSuccess = (accessToken: string): models.UpdateTokenSuccessAction => ({
+export const updateTokenSuccess = (token: RefreshedToken): models.UpdateTokenSuccessAction => ({
   type: types.UPDATE_TOKEN_SUCCESS,
-  payload: accessToken
+  payload: token
 });
 
 // +-------------+

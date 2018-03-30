@@ -3,3 +3,8 @@ export interface AuthTokens {
   expiresOn: number;
   refreshToken: string;
 }
+
+export interface RefreshedToken {
+  accessToken: string;
+  expiresOn: number;
+}

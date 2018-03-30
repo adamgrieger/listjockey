@@ -15,4 +15,6 @@ export class SessionActions {
   public login = () => this.ngRedux.dispatch(creators.spotifyLogin());
 
   public logout = () => this.ngRedux.dispatch(creators.listjockeyLogout());
+
+  public updateToken = () => this.ngRedux.dispatch(creators.updateToken());
 }

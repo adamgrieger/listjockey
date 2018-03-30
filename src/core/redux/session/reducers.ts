@@ -59,6 +59,25 @@ const spotifyLogout = (state: SessionState, action: models.SpotifyLogoutAction) 
   return SESSION_INITIAL_STATE;
 };
 
+const updateTokenFailure = (
+  state: SessionState,
+  action: models.UpdateTokenFailureAction
+): SessionState => ({
+  ...state,
+  error: action.payload
+});
+
+const updateTokenSuccess = (
+  state: SessionState,
+  action: models.UpdateTokenSuccessAction
+): SessionState => ({
+  ...state,
+  tokens: {
+    ...state.tokens,
+    ...action.payload
+  }
+});
+
 const updateUserFailure = (
   state: SessionState,
   action: models.UpdateUserFailureAction
@@ -84,6 +103,8 @@ export const sessionReducer: Reducer<SessionState> = (
     case types.SPOTIFY_LOGIN_FAILURE: return spotifyLoginFailure(state, action);
     case types.SPOTIFY_LOGIN_SUCCESS: return spotifyLoginSuccess(state, action);
     case types.SPOTIFY_LOGOUT: return spotifyLogout(state, action);
+    case types.UPDATE_TOKEN_FAILURE: return updateTokenFailure(state, action);
+    case types.UPDATE_TOKEN_SUCCESS: return updateTokenSuccess(state, action);
     case types.UPDATE_USER_FAILURE: return updateUserFailure(state, action);
     case types.UPDATE_USER_SUCCESS: return updateUserSuccess(state, action);
     default: return state;

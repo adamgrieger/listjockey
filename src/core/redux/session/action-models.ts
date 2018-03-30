@@ -1,5 +1,5 @@
 import { User } from '../../api/listjockey/models/user.models';
-import { AuthTokens } from '../../api/spotify/models/authorization.models';
+import { AuthTokens, RefreshedToken } from '../../api/spotify/models/authorization.models';
 import * as types from './action-types';
 
 export type SessionAction =
@@ -96,7 +96,6 @@ export interface ListJockeyLogoutSuccessAction {
 
 export interface UpdateTokenAction {
   type: typeof types.UPDATE_TOKEN;
-  payload: string;
 }
 
 export interface UpdateTokenFailureAction {
@@ -106,7 +105,7 @@ export interface UpdateTokenFailureAction {
 
 export interface UpdateTokenSuccessAction {
   type: typeof types.UPDATE_TOKEN_SUCCESS;
-  payload: string;
+  payload: RefreshedToken;
 }
 
 // +-------------+
