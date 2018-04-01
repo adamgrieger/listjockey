@@ -11,6 +11,9 @@ import { RoomListEpics } from '../room-list/services/epics.service';
 import { ROOM_INITIAL_STATE } from '../room/reducers';
 import { RoomModule } from '../room/room.module';
 import { RoomEpics } from '../room/services/epics.service';
+import { SEARCH_INITIAL_STATE } from '../search/reducers';
+import { SearchModule } from '../search/search.module';
+import { SearchEpics } from '../search/services/epics.service';
 import { SESSION_INITIAL_STATE } from '../session/reducers';
 import { SessionEpics } from '../session/services/epics.service';
 import { SessionModule } from '../session/session.module';
@@ -23,7 +26,8 @@ import { rootReducer } from './reducers';
     SessionModule,
     RoomListModule,
     RoomModule,
-    DevicesModule
+    DevicesModule,
+    SearchModule
   ]
 })
 export class StoreModule {
@@ -34,21 +38,24 @@ export class StoreModule {
     private session: SessionEpics,
     private roomList: RoomListEpics,
     private room: RoomEpics,
-    private devices: DevicesEpics
+    private devices: DevicesEpics,
+    private search: SearchEpics
   ) {
 
     const INITIAL_STATE: AppState = {
       session: SESSION_INITIAL_STATE,
       roomList: ROOM_LIST_INITIAL_STATE,
       room: ROOM_INITIAL_STATE,
-      devices: DEVICES_INITIAL_STATE
+      devices: DEVICES_INITIAL_STATE,
+      search: SEARCH_INITIAL_STATE
     };
 
     const middleware = [
       createEpicMiddleware(session.getCombinedEpics()),
       createEpicMiddleware(roomList.getCombinedEpics()),
       createEpicMiddleware(room.getCombinedEpics()),
-      createEpicMiddleware(devices.getCombinedEpics())
+      createEpicMiddleware(devices.getCombinedEpics()),
+      createEpicMiddleware(search.getCombinedEpics())
     ];
 
     let enhancers = [ ];

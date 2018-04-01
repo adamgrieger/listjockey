@@ -6,6 +6,7 @@
 
 
 <ion-content padding>
+  <song-search></song-search>
   <p>Host: {{ (room$ | async)?.host.username }}</p>
   <p>Description: {{ (room$ | async)?.description }}</p>
   <h2>Genres:</h2>

@@ -1,6 +1,7 @@
 import { DevicesState } from '../devices/reducers';
 import { RoomListState } from '../room-list/reducers';
 import { RoomState } from '../room/reducers';
+import { SearchState } from '../search/reducers';
 import { SessionState } from '../session/reducers';
 
 export interface AppState {
@@ -8,4 +9,5 @@ export interface AppState {
   roomList: RoomListState;
   room: RoomState;
   devices: DevicesState;
+  search: SearchState;
 }

@@ -53,7 +53,7 @@ export class SessionEpics {
         if (tokens.accessToken) {
           return Observable.of(creators.updateToken());
         } else {
-          return Observable.empty();
+          return Observable.empty<never>();
         }
       })
 
@@ -152,9 +152,6 @@ export class SessionEpics {
               Observable.of(creators.listjockeyLogin())
             )
           )
-          .catch(err => {
-            console.log(err);
-            return Observable.of(creators.updateUserFailure(err));
-          })
+          .catch(err => Observable.of(creators.updateUserFailure(err)))
       )
 }

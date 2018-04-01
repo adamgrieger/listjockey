@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { SpotifyAuthorizationService } from './services/authorization.service';
 import { SpotifyDevicesService } from './services/devices.service';
+import { SpotifySearchService } from './services/search.service';
 import { SpotifyUserService } from './services/user.service';
 
 @NgModule({
@@ -10,7 +11,8 @@ import { SpotifyUserService } from './services/user.service';
   providers: [
     SpotifyAuthorizationService,
     SpotifyUserService,
-    SpotifyDevicesService
+    SpotifyDevicesService,
+    SpotifySearchService
   ]
 })
 export class SpotifyModule { }

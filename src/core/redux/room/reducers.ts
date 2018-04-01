@@ -5,7 +5,7 @@ import { User } from '../../api/listjockey/models/user.models';
 import * as models from './action-models';
 import * as types from './action-types';
 
-export type RoomState  = {
+export type RoomState = {
   current: Room,
   users: User[],
   error: Error
