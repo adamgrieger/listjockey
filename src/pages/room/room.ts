@@ -3,7 +3,7 @@ import { IonicPage, NavParams } from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
-import { Room } from '../../core/api/listjockey/models/room.models';
+import { Room } from '../../core/api/listjockey/models/rooms.models';
 import { AppState } from '../../core/redux/store/models';
 import { RoomActions } from '../../core/redux/room/services/actions.service';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 
-import { CreateRoom } from '../../../api/listjockey/models/room-list.models';
+import { CreateRoom } from '../../../api/listjockey/models/rooms.models';
 import { AppState } from '../../store/models';
 import * as creators from '../action-creators';
 

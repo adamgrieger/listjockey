@@ -1,5 +1,5 @@
+import { CreateRoom, RoomListing } from '../../api/listjockey/models/rooms.models';
 import * as types from './action-types';
-import { RoomListing, CreateRoom } from '../../api/listjockey/models/room-list.models';
 
 export type RoomListAction =
   | GetRoomsAction

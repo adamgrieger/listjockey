@@ -1,5 +1,5 @@
-import { Room } from '../../api/listjockey/models/room.models';
-import { User } from '../../api/listjockey/models/user.models';
+import { Room } from '../../api/listjockey/models/rooms.models';
+import { User } from '../../api/listjockey/models/users.models';
 import * as models from './action-models';
 import * as types from './action-types';
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
-import { CreateRoom } from '../../../core/api/listjockey/models/room-list.models';
+import { CreateRoom } from '../../../core/api/listjockey/models/rooms.models';
 import { AppState } from '../../../core/redux/store/models';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 
-import { User } from '../../../api/listjockey/models/user.models';
+import { User } from '../../../api/listjockey/models/users.models';
 import { AppState } from '../../store/models';
 import * as creators from './../action-creators';
 

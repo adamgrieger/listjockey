@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
-import { RoomListing } from '../../../core/api/listjockey/models/room-list.models';
+import { RoomListing } from '../../../core/api/listjockey/models/rooms.models';
 import { AppState } from '../../../core/redux/store/models';
 
 @Component({

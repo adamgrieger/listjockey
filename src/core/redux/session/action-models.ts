@@ -1,4 +1,4 @@
-import { User } from '../../api/listjockey/models/user.models';
+import { User } from '../../api/listjockey/models/users.models';
 import { AuthTokens, RefreshedToken } from '../../api/spotify/models/authorization.models';
 import * as types from './action-types';
 

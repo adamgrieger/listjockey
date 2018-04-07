@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 
-import { RoomListing } from '../../api/listjockey/models/room-list.models';
+import { RoomListing } from '../../api/listjockey/models/rooms.models';
 import {
   CREATE_ROOM_FAILURE,
   CREATE_ROOM_SUCCESS,

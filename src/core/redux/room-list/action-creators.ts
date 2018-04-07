@@ -1,11 +1,19 @@
-import { RoomListing, CreateRoom } from '../../api/listjockey/models/room-list.models';
+import { CreateRoom, RoomListing } from '../../api/listjockey/models/rooms.models';
 import {
-  GET_ROOMS, GET_ROOMS_FAILURE, GET_ROOMS_SUCCESS,
-  CREATE_ROOM, CREATE_ROOM_FAILURE, CREATE_ROOM_SUCCESS
+  CREATE_ROOM,
+  CREATE_ROOM_FAILURE,
+  CREATE_ROOM_SUCCESS,
+  GET_ROOMS,
+  GET_ROOMS_FAILURE,
+  GET_ROOMS_SUCCESS
 } from './action-types';
 import {
-  GetRoomsAction, GetRoomsFailureAction, GetRoomsSuccessAction,
-  CreateRoomAction, CreateRoomFailureAction, CreateRoomSuccessAction
+  CreateRoomAction,
+  CreateRoomFailureAction,
+  CreateRoomSuccessAction,
+  GetRoomsAction,
+  GetRoomsFailureAction,
+  GetRoomsSuccessAction
 } from './models';
 
 export const getRooms = (): GetRoomsAction => ({ type: GET_ROOMS });

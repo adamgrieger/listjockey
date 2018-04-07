@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { SERVER_HOST } from '../../../../app/config';
-import { Room } from '../models/room.models';
-import { User } from '../models/user.models';
+import { Room } from '../models/rooms.models';
+import { User } from '../models/users.models';
 
 @Injectable()
 export class ListJockeyRoomService {
