@@ -10,7 +10,7 @@
 
   <ion-item>
     <ion-thumbnail item-start>
-      <img src="https://picsum.photos/100/?random">
+      <img src="{{ listing.now_playing?.album.cover_art }}">
     </ion-thumbnail>
     <h2>{{ listing.now_playing?.title }}</h2>
     <p>{{ listing.now_playing?.artist }}</p>
