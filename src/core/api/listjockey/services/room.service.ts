@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import { SERVER_HOST } from '../../../../app/config';
 import { Room } from '../models/rooms.models';
@@ -19,7 +19,11 @@ export class ListJockeyRoomService {
       .map(res => <User[]>(res.json()))
 
   public joinRoom = (id: number, username: string) =>
-    this.http.put(`${ SERVER_HOST }/room/${ id }/users`, username)
+    this.http.put(`${ SERVER_HOST }/room/${ id }/users`, JSON.stringify(username), {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
 
   public leaveRoom = (id: number, username: string) =>
     this.http.delete(`${ SERVER_HOST }/room/${ id }/users/${ username }`)

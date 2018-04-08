@@ -42,6 +42,10 @@ const joinRoomFailure = (state: RoomState, action: models.JoinRoomFailureAction)
   error: action.payload
 });
 
+const leaveRoom = (state: RoomState, action: models.LeaveRoomAction): RoomState => (
+  ROOM_INITIAL_STATE
+);
+
 const leaveRoomFailure = (state: RoomState, action: models.LeaveRoomFailureAction): RoomState => ({
   ...state,
   error: action.payload
@@ -57,6 +61,7 @@ export const roomReducer: Reducer<RoomState> = (
     case types.GET_USERS_FAILURE: return getUsersFailure(state, action);
     case types.GET_USERS_SUCCESS: return getUsersSuccess(state, action);
     case types.JOIN_ROOM_FAILURE: return joinRoomFailure(state, action);
+    case types.LEAVE_ROOM: return leaveRoom(state, action);
     case types.LEAVE_ROOM_FAILURE: return leaveRoomFailure(state, action);
     default: return state;
   }
