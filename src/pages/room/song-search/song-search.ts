@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
-import { AppState } from '../../../core/redux/store/models';
 import { Observable } from 'rxjs/Observable';
+
+import { RoomActions } from '../../../core/redux/room/services/actions.service';
 import { SearchActions } from '../../../core/redux/search/services/actions.service';
+import { AppState } from '../../../core/redux/store/models';
 
 @Component({
   selector: 'song-search',
@@ -14,6 +16,7 @@ export class SongSearch implements OnInit {
 
   constructor(
     private ngRedux: NgRedux<AppState>,
+    private room: RoomActions,
     private search: SearchActions
   ) { }
 
@@ -22,4 +25,18 @@ export class SongSearch implements OnInit {
   }
 
   private searchTracks = (query: string) => this.search.searchTracks(query);
+
+  private addSong = (track: SpotifyApi.TrackObjectFull) =>
+    this.room.addSong({
+      track_id: track.id,
+      added_by: this.ngRedux.getState().session.user.id,
+      title: track.name,
+      artist: track.artists[0].name,
+      album: {
+        title: track.album.name,
+        cover_art: track.album.images[0].url
+      },
+      duration: Math.floor(track.duration_ms / 1000),
+      offset: 0
+    })
 }

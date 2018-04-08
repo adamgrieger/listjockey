@@ -1,6 +1,8 @@
 <ion-searchbar (ionInput)="searchTracks($event.target.value)"></ion-searchbar>
 <ion-list>
-  <ion-item *ngFor="let track of tracks$ | async">
-    {{track.artists[0].name}} - {{ track.name }}
+  <ion-item 
+    *ngFor="let track of tracks$ | async"
+    (click)="addSong(track)">
+    {{ track.artists[0].name }} - {{ track.name }}
   </ion-item>
 </ion-list>

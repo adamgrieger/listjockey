@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Headers, Http } from '@angular/http';
 
 import { SERVER_HOST } from '../../../../app/config';
 import { Room } from '../models/rooms.models';
+import { Song } from '../models/songs.models';
 import { User } from '../models/users.models';
 
 @Injectable()
@@ -27,4 +28,7 @@ export class ListJockeyRoomService {
 
   public leaveRoom = (id: number, username: string) =>
     this.http.delete(`${ SERVER_HOST }/room/${ id }/users/${ username }`)
+
+  public addSong = (song: Song, id: number) =>
+    this.http.put(`${ SERVER_HOST }/room/${ id }/queue`, song)
 }

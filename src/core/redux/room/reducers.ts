@@ -51,6 +51,11 @@ const leaveRoomFailure = (state: RoomState, action: models.LeaveRoomFailureActio
   error: action.payload
 });
 
+const addSongFailure = (state: RoomState, action: models.AddSongFailureAction): RoomState => ({
+  ...state,
+  error: action.payload
+});
+
 export const roomReducer: Reducer<RoomState> = (
   state: RoomState = ROOM_INITIAL_STATE,
   action: models.RoomAction

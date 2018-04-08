@@ -1,4 +1,5 @@
 import { Room } from '../../api/listjockey/models/rooms.models';
+import { Song } from '../../api/listjockey/models/songs.models';
 import { User } from '../../api/listjockey/models/users.models';
 import * as types from './action-types';
 
@@ -15,6 +16,9 @@ export type RoomAction =
   | LeaveRoomAction
   | LeaveRoomFailureAction
   | LeaveRoomSuccessAction
+  | AddSongAction
+  | AddSongFailureAction
+  | AddSongSuccessAction
   ;
 
 // +----------+
@@ -95,4 +99,22 @@ export interface LeaveRoomFailureAction {
 
 export interface LeaveRoomSuccessAction {
   type: typeof types.LEAVE_ROOM_SUCCESS;
+}
+
+// +----------+
+// | Add Song |
+// +----------+
+
+export interface AddSongAction {
+  type: typeof types.ADD_SONG;
+  payload: Song;
+}
+
+export interface AddSongFailureAction {
+  type: typeof types.ADD_SONG_FAILURE;
+  payload: Error;
+}
+
+export interface AddSongSuccessAction {
+  type: typeof types.ADD_SONG_SUCCESS;
 }

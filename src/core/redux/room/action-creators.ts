@@ -1,4 +1,5 @@
 import { Room } from '../../api/listjockey/models/rooms.models';
+import { Song } from '../../api/listjockey/models/songs.models';
 import { User } from '../../api/listjockey/models/users.models';
 import * as models from './action-models';
 import * as types from './action-types';
@@ -81,4 +82,22 @@ export const leaveRoomFailure = (error: Error): models.LeaveRoomFailureAction =>
 
 export const leaveRoomSuccess = (): models.LeaveRoomSuccessAction => ({
   type: types.LEAVE_ROOM_SUCCESS
+});
+
+// +----------+
+// | Add Song |
+// +----------+
+
+export const addSong = (song: Song): models.AddSongAction => ({
+  type: types.ADD_SONG,
+  payload: song
+});
+
+export const addSongFailure = (error: Error): models.AddSongFailureAction => ({
+  type: types.ADD_SONG_FAILURE,
+  payload: error
+});
+
+export const addSongSuccess = (): models.AddSongSuccessAction => ({
+  type: types.ADD_SONG_SUCCESS
 });

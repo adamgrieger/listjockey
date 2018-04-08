@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 
+import { Song } from '../../../api/listjockey/models/songs.models';
 import { AppState } from '../../store/models';
 import * as creators from '../action-creators';
 
@@ -18,4 +19,6 @@ export class RoomActions {
 
   public leaveRoom = (id: number, username: string) =>
     this.ngRedux.dispatch(creators.leaveRoom(id, username))
+
+  public addSong = (song: Song) => this.ngRedux.dispatch(creators.addSong(song));
 }
