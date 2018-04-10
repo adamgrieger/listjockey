@@ -21,4 +21,6 @@ export class RoomActions {
     this.ngRedux.dispatch(creators.leaveRoom(id, username))
 
   public addSong = (song: Song) => this.ngRedux.dispatch(creators.addSong(song));
+
+  public updateQueue = (song: Song) => this.ngRedux.dispatch(creators.updateQueue(song));
 }

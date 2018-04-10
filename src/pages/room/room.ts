@@ -21,6 +21,7 @@ export class RoomPage implements OnInit, OnDestroy {
 
   private connection: SignalRConnection;
   private onPlaySong$: BroadcastEventListener<Song>;
+  private onSongAdded$: BroadcastEventListener<Song>;
   private room$: Observable<Room>;
 
   constructor(
@@ -47,6 +48,13 @@ export class RoomPage implements OnInit, OnDestroy {
         this.playback.play(song.track_id)
           .concat(this.playback.seek(song.offset * 1000))
           .subscribe();
+      }
+    });
+
+    this.onSongAdded$ = this.connection.listenFor<Song>('song_added');
+    this.onSongAdded$.subscribe(song => {
+      if (song) {
+        this.room.updateQueue(song);
       }
     });
 

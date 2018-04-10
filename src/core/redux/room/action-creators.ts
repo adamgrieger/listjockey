@@ -101,3 +101,12 @@ export const addSongFailure = (error: Error): models.AddSongFailureAction => ({
 export const addSongSuccess = (): models.AddSongSuccessAction => ({
   type: types.ADD_SONG_SUCCESS
 });
+
+// +--------------+
+// | Update Queue |
+// +--------------+
+
+export const updateQueue = (song: Song): models.UpdateQueueAction => ({
+  type: types.UPDATE_QUEUE,
+  payload: song
+});

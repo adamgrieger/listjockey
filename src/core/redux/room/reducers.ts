@@ -56,6 +56,19 @@ const addSongFailure = (state: RoomState, action: models.AddSongFailureAction): 
   error: action.payload
 });
 
+const updateQueue = (state: RoomState, action: models.UpdateQueueAction): RoomState => ({
+  ...state,
+  current: {
+    ...state.current,
+    play_queue: {
+      songs: [
+        ...state.current.play_queue.songs,
+        action.payload
+      ]
+    }
+  }
+});
+
 export const roomReducer: Reducer<RoomState> = (
   state: RoomState = ROOM_INITIAL_STATE,
   action: models.RoomAction
@@ -68,6 +81,7 @@ export const roomReducer: Reducer<RoomState> = (
     case types.JOIN_ROOM_FAILURE: return joinRoomFailure(state, action);
     case types.LEAVE_ROOM: return leaveRoom(state, action);
     case types.LEAVE_ROOM_FAILURE: return leaveRoomFailure(state, action);
+    case types.UPDATE_QUEUE: return updateQueue(state, action);
     default: return state;
   }
 };
