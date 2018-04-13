@@ -19,8 +19,8 @@ export class SpotifyAuthorizationService {
     this.http.get(`${ SERVER_HOST }/auth/login`)
       .map(res => res.text())
 
-  public onAuthTokensSent = () =>
-    Observable.fromPromise(this.signalr.connect({ hubName: 'AuthHub' }))
+  public onAuthTokensSent = (authState: string) =>
+    Observable.fromPromise(this.signalr.connect({ hubName: 'AuthHub', qs: { authState } }))
       .concatMap(conn => conn.listenFor<AuthTokens>('onAuthTokensSent'))
 
   public updateToken = (refreshToken: string) =>

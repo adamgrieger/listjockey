@@ -65,8 +65,11 @@ export class SessionEpics {
       .switchMap((action: models.SpotifyLoginAction) =>
         this.spotifyAuth.getLoginUrl()
           .map(url => window.open(url))
-          .concatMap(window =>
-            this.spotifyAuth.onAuthTokensSent()
+          .concatMap(window => {
+            const url = new URL(window.location.href);
+            const authState = url.searchParams.get('state');
+
+            return this.spotifyAuth.onAuthTokensSent(authState)
               .do(tokens => this.globals.spotify.setAccessToken(tokens.accessToken))
               .do(tokens => {
                 localStorage.setItem('accessToken', tokens.accessToken);
@@ -80,8 +83,8 @@ export class SessionEpics {
                   Observable.of(creators.updateUser())
                 )
               )
-              .catch(err => Observable.of(creators.spotifyLoginFailure(err)))
-          )
+              .catch(err => Observable.of(creators.spotifyLoginFailure(err)));
+          })
           .catch(err => Observable.of(creators.spotifyLoginFailure(err)))
       )
 
