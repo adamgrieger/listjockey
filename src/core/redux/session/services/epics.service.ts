@@ -15,6 +15,7 @@ import { ActionsObservable, combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 
 import { ListJockeyUserService } from '../../../api/listjockey/services/user.service';
+import { AuthTokens } from '../../../api/spotify/models/authorization.models';
 import { SpotifyAuthorizationService } from '../../../api/spotify/services/authorization.service';
 import { SpotifyUserService } from '../../../api/spotify/services/user.service';
 import { GlobalsService } from '../../../services/globals.service';
@@ -64,27 +65,27 @@ export class SessionEpics {
     action$.ofType(types.SPOTIFY_LOGIN)
       .switchMap((action: models.SpotifyLoginAction) =>
         this.spotifyAuth.getLoginUrl()
-          .map(url => window.open(url))
-          .concatMap(window => {
-            const url = new URL(window.location.href);
-            const authState = url.searchParams.get('state');
+          .concatMap(url => {
+            const authState = new URL(url).searchParams.get('state');
 
-            return this.spotifyAuth.onAuthTokensSent(authState)
-              .do(tokens => this.globals.spotify.setAccessToken(tokens.accessToken))
-              .do(tokens => {
-                localStorage.setItem('accessToken', tokens.accessToken);
-                localStorage.setItem('expiresOn', `${ tokens.expiresOn }`);
-                localStorage.setItem('refreshToken', tokens.refreshToken);
-                window.close();
-              })
-              .concatMap(tokens =>
-                Observable.concat(
-                  Observable.of(creators.spotifyLoginSuccess(tokens)),
-                  Observable.of(creators.updateUser())
-                )
-              )
-              .catch(err => Observable.of(creators.spotifyLoginFailure(err)));
+            return this.spotifyAuth.getAuthHubConnection(authState)
+              .concatMap(conn => {
+                const loginWindow = window.open(url);
+
+                return conn.listenFor<AuthTokens>('onAuthTokensSent')
+                  .do(tokens => {
+                    this.spotifyAuth.tokensToLocalStorage(tokens);
+                    this.globals.spotify.setAccessToken(tokens.accessToken);
+                    loginWindow.close();
+                  });
+              });
           })
+          .concatMap(tokens =>
+            Observable.concat(
+              Observable.of(creators.spotifyLoginSuccess(tokens)),
+              Observable.of(creators.updateUser())
+            )
+          )
           .catch(err => Observable.of(creators.spotifyLoginFailure(err)))
       )
 
