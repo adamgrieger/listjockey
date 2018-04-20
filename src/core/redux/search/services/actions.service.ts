@@ -10,4 +10,6 @@ export class SearchActions {
   constructor(private ngRedux: NgRedux<AppState>) { }
 
   public searchTracks = (query: string) => this.ngRedux.dispatch(creators.searchTracks(query));
+
+  public clearSearch = () => this.ngRedux.dispatch(creators.clearSearch());
 }

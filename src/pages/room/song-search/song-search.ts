@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,7 +10,7 @@ import { AppState } from '../../../core/redux/store/models';
   selector: 'song-search',
   templateUrl: 'song-search.html'
 })
-export class SongSearch implements OnInit {
+export class SongSearch implements OnInit, OnDestroy {
 
   private tracks$: Observable<SpotifyApi.TrackObjectFull[]>;
 
@@ -22,6 +22,10 @@ export class SongSearch implements OnInit {
 
   ngOnInit() {
     this.tracks$ = this.ngRedux.select(state => state.search.tracks);
+  }
+
+  ngOnDestroy() {
+    this.search.clearSearch();
   }
 
   private searchTracks = (query: string) => this.search.searchTracks(query);

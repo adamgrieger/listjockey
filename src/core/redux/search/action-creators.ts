@@ -17,3 +17,7 @@ export const searchTracksSuccess = (
   type: types.SEARCH_TRACKS_SUCCESS,
   payload: response.tracks.items
 });
+
+export const clearSearch = (): models.ClearSearchAction => ({
+  type: types.CLEAR_SEARCH
+});

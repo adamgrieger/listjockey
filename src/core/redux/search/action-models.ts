@@ -4,6 +4,7 @@ export type SearchAction =
   | SearchTracksAction
   | SearchTracksFailureAction
   | SearchTracksSuccessAction
+  | ClearSearchAction
   ;
 
 export interface SearchTracksAction {
@@ -19,4 +20,8 @@ export interface SearchTracksFailureAction {
 export interface SearchTracksSuccessAction {
   type: typeof types.SEARCH_TRACKS_SUCCESS;
   payload: SpotifyApi.TrackObjectFull[];
+}
+
+export interface ClearSearchAction {
+  type: typeof types.CLEAR_SEARCH;
 }

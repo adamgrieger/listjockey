@@ -25,6 +25,9 @@ export const searchReducer: Reducer<SearchState> = (
     case types.SEARCH_TRACKS_SUCCESS:
       return { ...state, tracks: action.payload };
 
+    case types.CLEAR_SEARCH:
+      return SEARCH_INITIAL_STATE;
+
     default:
       return state;
   }
