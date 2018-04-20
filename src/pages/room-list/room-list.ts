@@ -4,7 +4,6 @@ import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
 import { CreateRoom, RoomListing } from '../../core/api/listjockey/models/rooms.models';
-import { DevicesActions } from '../../core/redux/devices/services/actions.service';
 import { RoomListActions } from '../../core/redux/room-list/services/actions.service';
 import { SessionActions } from '../../core/redux/session/services/actions.service';
 import { AppState } from '../../core/redux/store/models';
@@ -25,8 +24,7 @@ export class RoomListPage implements OnInit {
     public navParams: NavParams,
     private ngRedux: NgRedux<AppState>,
     private session: SessionActions,
-    private roomList: RoomListActions,
-    private devices: DevicesActions
+    private roomList: RoomListActions
   ) { }
 
   ngOnInit() {
@@ -43,6 +41,4 @@ export class RoomListPage implements OnInit {
   private joinRoom = (roomId: number) => this.navCtrl.push(RoomPage, { id: roomId });
 
   private createRoom = (room: CreateRoom) => this.roomList.createRoom(room);
-
-  private getAvailableDevices = () => this.devices.getAvailableDevices();
 }
