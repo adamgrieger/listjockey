@@ -1,12 +1,8 @@
 import { Reducer } from 'redux';
 
 import { Device } from '../../api/spotify/models/devices.models';
-import {
-  DevicesAction,
-  GetAvailableDevicesFailureAction,
-  GetAvailableDevicesSuccessAction,
-} from './action-models';
-import { GET_AVAILABLE_DEVICES_FAILURE, GET_AVAILABLE_DEVICES_SUCCESS } from './action-types';
+import * as models from './action-models';
+import * as types from './action-types';
 
 export interface DevicesState {
   devices: Device[];
@@ -18,29 +14,19 @@ export const DEVICES_INITIAL_STATE: DevicesState = {
   error: null
 };
 
-const getAvailableDevicesFailure = (
-  state: DevicesState,
-  action: GetAvailableDevicesFailureAction
-): DevicesState => ({
-  ...state,
-  error: action.payload
-});
-
-const getAvailableDevicesSuccess = (
-  state: DevicesState,
-  action: GetAvailableDevicesSuccessAction
-): DevicesState => ({
-  ...state,
-  devices: action.payload
-});
-
 export const devicesReducer: Reducer<DevicesState> = (
   state: DevicesState = DEVICES_INITIAL_STATE,
-  action: DevicesAction
+  action: models.DevicesAction
 ): DevicesState => {
   switch (action.type) {
-    case GET_AVAILABLE_DEVICES_FAILURE: return getAvailableDevicesFailure(state, action);
-    case GET_AVAILABLE_DEVICES_SUCCESS: return getAvailableDevicesSuccess(state, action);
-    default: return state;
+
+    case types.GET_AVAILABLE_DEVICES_FAILURE:
+      return { ...state, error: action.payload };
+
+    case types.GET_AVAILABLE_DEVICES_SUCCESS:
+      return { ...state, devices: action.payload };
+
+    default:
+      return state;
   }
 };

@@ -14,7 +14,7 @@ import {
   GetRoomsAction,
   GetRoomsFailureAction,
   GetRoomsSuccessAction
-} from './models';
+} from './action-models';
 
 export const getRooms = (): GetRoomsAction => ({ type: GET_ROOMS });
 

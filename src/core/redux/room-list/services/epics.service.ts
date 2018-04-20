@@ -14,7 +14,7 @@ import {
   getRoomsSuccess
 } from '../action-creators';
 import { CREATE_ROOM, GET_ROOMS } from '../action-types';
-import { CreateRoomAction, GetRoomsAction, RoomListAction } from '../models';
+import { CreateRoomAction, GetRoomsAction, RoomListAction } from '../action-models';
 
 @Injectable()
 export class RoomListEpics {
