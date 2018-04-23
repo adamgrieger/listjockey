@@ -22,4 +22,11 @@ export class SongQueue implements OnInit {
   ngOnInit() {
     this.room$ = this.ngRedux.select(state => state.room.current);
   }
+
+  private secondsToTimestamp = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    return `${ minutes }:${ seconds }`;
+  }
 }
