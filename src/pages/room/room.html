@@ -6,8 +6,7 @@
 
 
 <ion-content padding>
-  <p>Host: {{ (room$ | async)?.host.username }}</p>
-  <p>Description: {{ (room$ | async)?.description }}</p>
+  <room-details [room]="room$ | async"></room-details>
   <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
   <song-search></song-search>
   <song-queue></song-queue>

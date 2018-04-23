@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-item>
+    <ion-avatar item-start>
+      <img [src]="room?.host?.avatar_url">
+    </ion-avatar>
+    <h2>{{ room?.title }}</h2>
+    <p>Hosted by {{ room?.host?.display_name }}</p>
+  </ion-item>
+  <ion-item>
+    <p>{{ room?.description }}</p>
+  </ion-item>
+</ion-card>
