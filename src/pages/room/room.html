@@ -6,8 +6,14 @@
 
 
 <ion-content padding>
-  <room-details [room]="room$ | async"></room-details>
-  <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
+  <ion-row>
+    <ion-col col-3>
+      <room-details [room]="room$ | async"></room-details>
+    </ion-col>
+    <ion-col col-9>
+      <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
+    </ion-col>
+  </ion-row>
   <song-search></song-search>
   <song-queue></song-queue>
 </ion-content>
