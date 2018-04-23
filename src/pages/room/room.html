@@ -6,21 +6,11 @@
 
 
 <ion-content padding>
-  <song-search></song-search>
   <p>Host: {{ (room$ | async)?.host.username }}</p>
   <p>Description: {{ (room$ | async)?.description }}</p>
-  <h2>Genres:</h2>
-  <ul>
-    <li *ngFor="let genre of (room$ | async)?.genres">{{ genre }}</li>
-  </ul>
   <h2>Now Playing:</h2>
   <h1>{{ (room$ | async)?.now_playing?.title }}</h1>
   <h3>{{ (room$ | async)?.now_playing?.artist }}</h3>
-  <br>
-  <h3>Play Queue:</h3>
-  <ul>
-    <li *ngFor="let song of (room$ | async)?.play_queue.songs">
-      {{ song.title }} by {{ song.artist }}
-    </li>
-  </ul>
+  <song-search></song-search>
+  <song-queue></song-queue>
 </ion-content>
