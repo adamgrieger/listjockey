@@ -1,3 +1,4 @@
+import { ChatState } from '../chat/reducers';
 import { DevicesState } from '../devices/reducers';
 import { RoomListState } from '../room-list/reducers';
 import { RoomState } from '../room/reducers';
@@ -10,4 +11,5 @@ export interface AppState {
   room: RoomState;
   devices: DevicesState;
   search: SearchState;
+  chat: ChatState;
 }

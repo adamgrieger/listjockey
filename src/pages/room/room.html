@@ -16,4 +16,8 @@
   </ion-row>
   <song-search></song-search>
   <song-queue></song-queue>
+  <chat-box
+    [messages]="chatMessages$ | async"
+    (onMessageSent)="sendChatMessage($event)">
+  </chat-box>
 </ion-content>

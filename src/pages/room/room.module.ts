@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
+import { ChatBox } from './chat-box/chat-box';
 import { DeviceSelect } from './device-select/device-select';
 import { NowPlaying } from './now-playing/now-playing';
 import { RoomPage } from './room';
@@ -15,7 +16,8 @@ import { SongSearch } from './song-search/song-search';
     DeviceSelect,
     SongQueue,
     NowPlaying,
-    RoomDetails
+    RoomDetails,
+    ChatBox
   ],
   imports: [
     IonicPageModule.forChild(RoomPage)

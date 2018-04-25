@@ -6,9 +6,11 @@ import { NgRedux } from 'ng2-redux';
 import { BroadcastEventListener, SignalR, SignalRConnection } from 'ng2-signalr';
 import { Observable } from 'rxjs/Observable';
 
+import { ChatMessage } from '../../core/api/listjockey/models/chat.models';
 import { Room } from '../../core/api/listjockey/models/rooms.models';
 import { Song } from '../../core/api/listjockey/models/songs.models';
 import { SpotifyPlaybackService } from '../../core/api/spotify/services/playback.service';
+import { ChatActions } from '../../core/redux/chat/services/actions.service';
 import { RoomActions } from '../../core/redux/room/services/actions.service';
 import { AppState } from '../../core/redux/store/models';
 
@@ -22,19 +24,23 @@ export class RoomPage implements OnInit, OnDestroy {
   private connection: SignalRConnection;
   private onPlaySong$: BroadcastEventListener<Song>;
   private onSongAdded$: BroadcastEventListener<Song>;
+  private onChatMessageReceived$: BroadcastEventListener<ChatMessage>;
   private room$: Observable<Room>;
+  private chatMessages$: Observable<ChatMessage[]>;
 
   constructor(
     private navParams: NavParams,
     private ngRedux: NgRedux<AppState>,
     private signalr: SignalR,
     private room: RoomActions,
+    private chat: ChatActions,
     private playback: SpotifyPlaybackService
   ) { }
 
   ngOnInit() {
     this.connection = this.signalr.createConnection({ hubName: 'RoomHub' });
     this.room$ = this.ngRedux.select(state => state.room.current);
+    this.chatMessages$ = this.ngRedux.select(state => state.chat.messages);
 
     const roomId: number = this.navParams.get('id');
     const username = this.ngRedux.getState().session.user.id;
@@ -58,6 +64,13 @@ export class RoomPage implements OnInit, OnDestroy {
       }
     });
 
+    this.onChatMessageReceived$ = this.connection.listenFor<ChatMessage>('chat_message');
+    this.onChatMessageReceived$.subscribe(message => {
+      if (message.text) {
+        this.chat.receiveMessage(message);
+      }
+    });
+
     this.connection.start().then(conn => {
       conn.invoke('JoinRoom', `${ roomId }`);
     });
@@ -69,7 +82,24 @@ export class RoomPage implements OnInit, OnDestroy {
 
     this.room.leaveRoom(roomId, username);
     this.onPlaySong$.unsubscribe();
+    this.onSongAdded$.unsubscribe();
+    this.onChatMessageReceived$.unsubscribe();
     this.connection.invoke('LeaveRoom', `${ roomId }`)
       .then(() => this.connection.stop());
+  }
+
+  private sendChatMessage = (content: string) => {
+    if (content) {
+      const message: ChatMessage = {
+        sender: this.ngRedux.getState().session.user.id,
+        text: content
+      };
+
+      this.connection.invoke(
+        'ChatMessage',
+        String(this.ngRedux.getState().room.current.id),
+        message
+      );
+    }
   }
 }

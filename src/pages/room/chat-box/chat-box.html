@@ -1,0 +1,11 @@
+<ion-card>
+  <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+    <ion-list>
+      <ion-item *ngFor="let message of messages">
+        <p>{{ message.sender }}: {{ message.text }}</p>
+      </ion-item>
+    </ion-list>
+    <ion-input type="text" formControlName="message"></ion-input>
+    <button ion-button type="submit">Chat</button>
+  </form>
+</ion-card>

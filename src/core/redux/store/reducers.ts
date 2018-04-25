@@ -1,5 +1,6 @@
 import { combineReducers, Reducer } from 'redux';
 
+import { chatReducer } from '../chat/reducers';
 import { devicesReducer } from '../devices/reducers';
 import { roomListReducer } from '../room-list/reducers';
 import { roomReducer } from '../room/reducers';
@@ -12,5 +13,6 @@ export const rootReducer: Reducer<AppState> = combineReducers<AppState>({
   roomList: roomListReducer,
   room: roomReducer,
   devices: devicesReducer,
-  search: searchReducer
+  search: searchReducer,
+  chat: chatReducer
 });

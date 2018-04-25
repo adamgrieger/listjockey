@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { DevToolsExtension, NgRedux, NgReduxModule } from 'ng2-redux';
 import { createEpicMiddleware } from 'redux-observable';
 
+import { ChatModule } from '../chat/chat.module';
+import { CHAT_INITIAL_STATE } from '../chat/reducers';
+import { ChatEpics } from '../chat/services/epics.service';
 import { DevicesModule } from '../devices/devices.module';
 import { DEVICES_INITIAL_STATE } from '../devices/reducers';
 import { DevicesEpics } from '../devices/services/epics.service';
@@ -27,7 +30,8 @@ import { rootReducer } from './reducers';
     RoomListModule,
     RoomModule,
     DevicesModule,
-    SearchModule
+    SearchModule,
+    ChatModule
   ]
 })
 export class StoreModule {
@@ -39,7 +43,8 @@ export class StoreModule {
     private roomList: RoomListEpics,
     private room: RoomEpics,
     private devices: DevicesEpics,
-    private search: SearchEpics
+    private search: SearchEpics,
+    private chat: ChatEpics
   ) {
 
     const INITIAL_STATE: AppState = {
@@ -47,7 +52,8 @@ export class StoreModule {
       roomList: ROOM_LIST_INITIAL_STATE,
       room: ROOM_INITIAL_STATE,
       devices: DEVICES_INITIAL_STATE,
-      search: SEARCH_INITIAL_STATE
+      search: SEARCH_INITIAL_STATE,
+      chat: CHAT_INITIAL_STATE
     };
 
     const middleware = [
@@ -55,7 +61,8 @@ export class StoreModule {
       createEpicMiddleware(roomList.getCombinedEpics()),
       createEpicMiddleware(room.getCombinedEpics()),
       createEpicMiddleware(devices.getCombinedEpics()),
-      createEpicMiddleware(search.getCombinedEpics())
+      createEpicMiddleware(search.getCombinedEpics()),
+      createEpicMiddleware(chat.getCombinedEpics())
     ];
 
     let enhancers = [ ];
