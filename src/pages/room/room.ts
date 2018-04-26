@@ -13,6 +13,7 @@ import { SpotifyPlaybackService } from '../../core/api/spotify/services/playback
 import { ChatActions } from '../../core/redux/chat/services/actions.service';
 import { RoomActions } from '../../core/redux/room/services/actions.service';
 import { AppState } from '../../core/redux/store/models';
+import { User } from '../../core/api/listjockey/models/users.models';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,7 @@ export class RoomPage implements OnInit, OnDestroy {
   private onSongAdded$: BroadcastEventListener<Song>;
   private onChatMessageReceived$: BroadcastEventListener<ChatMessage>;
   private room$: Observable<Room>;
+  private users$: Observable<User[]>;
   private chatMessages$: Observable<ChatMessage[]>;
 
   constructor(
@@ -40,6 +42,7 @@ export class RoomPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.connection = this.signalr.createConnection({ hubName: 'RoomHub' });
     this.room$ = this.ngRedux.select(state => state.room.current);
+    this.users$ = this.ngRedux.select(state => state.room.users);
     this.chatMessages$ = this.ngRedux.select(state => state.chat.messages);
 
     const roomId: number = this.navParams.get('id');
@@ -47,6 +50,7 @@ export class RoomPage implements OnInit, OnDestroy {
 
     this.room.getRoom(roomId);
     this.room.joinRoom(roomId, username);
+    this.room.getUsers(roomId);
 
     this.onPlaySong$ = this.connection.listenFor<Song>('play_song');
     this.onPlaySong$.subscribe(song => {

@@ -6,6 +6,7 @@ import { DeviceSelect } from './device-select/device-select';
 import { NowPlaying } from './now-playing/now-playing';
 import { RoomPage } from './room';
 import { RoomDetails } from './room-details/room-details';
+import { RoomMembers } from './room-members/room-members';
 import { SongQueue } from './song-queue/song-queue';
 import { SongSearch } from './song-search/song-search';
 
@@ -17,7 +18,8 @@ import { SongSearch } from './song-search/song-search';
     SongQueue,
     NowPlaying,
     RoomDetails,
-    ChatBox
+    ChatBox,
+    RoomMembers
   ],
   imports: [
     IonicPageModule.forChild(RoomPage)

@@ -1,0 +1,10 @@
+<ion-card>
+  <ion-list>
+    <ion-item *ngFor="let user of users">
+      <ion-avatar item-start>
+        <img [src]="user?.avatar_url">
+      </ion-avatar>
+      <h2>{{ user?.display_name }}</h2>
+    </ion-item>
+  </ion-list>
+</ion-card>

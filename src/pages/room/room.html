@@ -4,7 +4,6 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-row>
     <ion-col col-3>
@@ -16,6 +15,7 @@
   </ion-row>
   <song-search></song-search>
   <song-queue></song-queue>
+  <room-members [users]="(users$ | async)"></room-members>
   <chat-box
     [messages]="chatMessages$ | async"
     (onMessageSent)="sendChatMessage($event)">
