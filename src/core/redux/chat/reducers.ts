@@ -26,9 +26,9 @@ export const chatReducer: Reducer<ChatState> = (
     case types.RECEIVE_MESSAGE:
       return {
         ...state,
-        messages: [
-          ...state.messages, action.payload
-        ]
+        messages: state.messages
+          ? [ ...state.messages, action.payload ]
+          : [ action.payload ]
       };
 
     default:

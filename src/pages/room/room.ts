@@ -66,6 +66,7 @@ export class RoomPage implements OnInit, OnDestroy {
 
     this.onChatMessageReceived$ = this.connection.listenFor<ChatMessage>('chat_message');
     this.onChatMessageReceived$.subscribe(message => {
+      console.log(message);
       if (message.text) {
         this.chat.receiveMessage(message);
       }
@@ -90,15 +91,18 @@ export class RoomPage implements OnInit, OnDestroy {
 
   private sendChatMessage = (content: string) => {
     if (content) {
+      const state = this.ngRedux.getState();
+
       const message: ChatMessage = {
-        sender: this.ngRedux.getState().session.user.id,
+        sender: state.session.user.id,
         text: content
       };
 
       this.connection.invoke(
         'ChatMessage',
-        String(this.ngRedux.getState().room.current.id),
-        message
+        String(state.room.current.id),
+        state.session.user.id,
+        content
       );
     }
   }
