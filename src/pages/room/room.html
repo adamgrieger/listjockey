@@ -5,19 +5,27 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-    <ion-col col-3>
-      <room-details [room]="room$ | async"></room-details>
-    </ion-col>
-    <ion-col col-9>
-      <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
-    </ion-col>
-  </ion-row>
-  <song-search></song-search>
-  <song-queue></song-queue>
-  <room-members [users]="(users$ | async)"></room-members>
-  <chat-box
-    [messages]="chatMessages$ | async"
-    (onMessageSent)="sendChatMessage($event)">
-  </chat-box>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <room-details [room]="room$ | async"></room-details>
+      </ion-col>
+      <ion-col col-9>
+        <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-9>
+        <song-search></song-search>
+        <song-queue></song-queue>
+      </ion-col>
+      <ion-col col-3>
+        <room-members [users]="(users$ | async)"></room-members>
+        <chat-box
+          [messages]="chatMessages$ | async"
+          (onMessageSent)="sendChatMessage($event)">
+        </chat-box>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
