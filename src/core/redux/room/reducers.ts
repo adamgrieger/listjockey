@@ -13,7 +13,7 @@ export type RoomState = {
 
 export const ROOM_INITIAL_STATE: RoomState = {
   current: null,
-  users: null,
+  users: [],
   error: null
 };
 
@@ -34,6 +34,18 @@ export const roomReducer: Reducer<RoomState> = (
 
     case types.GET_USERS_SUCCESS:
       return { ...state, users: action.payload };
+
+    case types.ADD_USER:
+      return {
+        ...state,
+        users: [ ...state.users, action.payload ]
+      };
+
+    case types.REMOVE_USER:
+      return {
+        ...state,
+        users: state.users.filter(user => user.username !== action.payload.username)
+      };
 
     case types.JOIN_ROOM_FAILURE:
       return { ...state, error: action.payload };

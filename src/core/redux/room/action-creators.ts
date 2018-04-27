@@ -42,6 +42,24 @@ export const getUsersSuccess = (users: User[]): models.GetUsersSuccessAction => 
   payload: users
 });
 
+// +----------+
+// | Add User |
+// +----------+
+
+export const addUser = (user: User): models.AddUserAction => ({
+  type: types.ADD_USER,
+  payload: user
+});
+
+// +-------------+
+// | Remove User |
+// +-------------+
+
+export const removeUser = (username: User): models.RemoveUserAction => ({
+  type: types.REMOVE_USER,
+  payload: username
+});
+
 // +-----------+
 // | Join Room |
 // +-----------+

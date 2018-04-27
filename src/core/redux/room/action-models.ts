@@ -10,6 +10,8 @@ export type RoomAction =
   | GetUsersAction
   | GetUsersFailureAction
   | GetUsersSuccessAction
+  | AddUserAction
+  | RemoveUserAction
   | JoinRoomAction
   | JoinRoomFailureAction
   | JoinRoomSuccessAction
@@ -58,6 +60,24 @@ export interface GetUsersFailureAction {
 export interface GetUsersSuccessAction {
   type: typeof types.GET_USERS_SUCCESS;
   payload: User[];
+}
+
+// +----------+
+// | Add User |
+// +----------+
+
+export interface AddUserAction {
+  type: typeof types.ADD_USER;
+  payload: User;
+}
+
+// +-------------+
+// | Remove User |
+// +-------------+
+
+export interface RemoveUserAction {
+  type: typeof types.REMOVE_USER;
+  payload: User;
 }
 
 // +-----------+

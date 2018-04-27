@@ -6,6 +6,10 @@ export const GET_USERS = 'GET_USERS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 
+export const ADD_USER = 'ADD_USER';
+
+export const REMOVE_USER = 'REMOVE_USER';
+
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const JOIN_ROOM_FAILURE = 'JOIN_ROOM_FAILURE';
 export const JOIN_ROOM_SUCCESS = 'JOIN_ROOM_SUCCESS';

@@ -1,3 +1,5 @@
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
 
 import { Injectable } from '@angular/core';
@@ -45,7 +47,12 @@ export class RoomEpics {
     action$.ofType(types.JOIN_ROOM)
       .switchMap((action: models.JoinRoomAction) =>
         this.room.joinRoom(action.payload.id, action.payload.username)
-          .mapTo(creators.joinRoomSuccess())
+          .concatMap(() =>
+            Observable.merge(
+              Observable.of(creators.getRoom(action.payload.id)),
+              Observable.of(creators.getUsers(action.payload.id))
+            )
+          )
           .catch(err => Observable.of(creators.joinRoomFailure(err)))
       )
 

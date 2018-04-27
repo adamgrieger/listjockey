@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 
 import { Song } from '../../../api/listjockey/models/songs.models';
+import { User } from '../../../api/listjockey/models/users.models';
 import { AppState } from '../../store/models';
 import * as creators from '../action-creators';
 
@@ -10,9 +11,9 @@ export class RoomActions {
 
   constructor(private ngRedux: NgRedux<AppState>) { }
 
-  public getRoom = (id: number) => this.ngRedux.dispatch(creators.getRoom(id));
+  public addUser = (user: User) => this.ngRedux.dispatch(creators.addUser(user));
 
-  public getUsers = (id: number) => this.ngRedux.dispatch(creators.getUsers(id));
+  public removeUser = (username: User) => this.ngRedux.dispatch(creators.removeUser(username));
 
   public joinRoom = (id: number, username: string) =>
     this.ngRedux.dispatch(creators.joinRoom(id, username))
