@@ -8,6 +8,7 @@ import { ActionsObservable, combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 
 import { ListJockeyRoomService } from '../../../api/listjockey/services/room.service';
+import { SpotifyPlaybackService } from '../../../api/spotify/services/playback.service';
 import { AppState } from '../../store/models';
 import * as creators from '../action-creators';
 import * as models from '../action-models';
@@ -16,7 +17,7 @@ import * as types from '../action-types';
 @Injectable()
 export class RoomEpics {
 
-  constructor(private room: ListJockeyRoomService) { }
+  constructor(private room: ListJockeyRoomService, private playback: SpotifyPlaybackService) { }
 
   public getCombinedEpics = () =>
     combineEpics(
@@ -24,7 +25,8 @@ export class RoomEpics {
       this.getUsers,
       this.joinRoom,
       this.leaveRoom,
-      this.addSong
+      this.addSong,
+      this.nextSong
     )
 
   public getRoom = (action$: ActionsObservable<models.RoomAction>, store: Store<AppState>) =>
@@ -74,4 +76,16 @@ export class RoomEpics {
           .mapTo(creators.addSongSuccess())
           .catch(err => Observable.of(creators.addSongFailure(err)))
       )
+
+  public nextSong = (action$: ActionsObservable<models.NextSongAction>, store: Store<AppState>) =>
+    action$.ofType(types.NEXT_SONG)
+      .switchMap((action: models.NextSongAction) => {
+        if (store.getState().room.current.now_playing) {
+          return this.playback.play(store.getState().room.current.now_playing.track_id)
+            .mapTo(creators.nextSongSuccess())
+            .catch(err => Observable.of(creators.nextSongFailure(err)));
+        } else {
+          return Observable.empty<never>();
+        }
+      })
 }

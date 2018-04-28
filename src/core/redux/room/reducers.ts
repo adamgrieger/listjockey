@@ -73,6 +73,18 @@ export const roomReducer: Reducer<RoomState> = (
         }
       };
 
+    case types.NEXT_SONG:
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          play_queue: {
+            songs: state.current.play_queue.songs ? state.current.play_queue.songs.slice(1) : []
+          },
+          now_playing: state.current.play_queue.songs ? state.current.play_queue.songs[0] : null
+        }
+      };
+
     default:
       return state;
   }

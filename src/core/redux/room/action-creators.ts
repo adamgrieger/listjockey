@@ -128,3 +128,20 @@ export const updateQueue = (song: Song): models.UpdateQueueAction => ({
   type: types.UPDATE_QUEUE,
   payload: song
 });
+
+// +-----------+
+// | Next Song |
+// +-----------+
+
+export const nextSong = (): models.NextSongAction => ({
+  type: types.NEXT_SONG
+});
+
+export const nextSongFailure = (error: Error): models.NextSongFailureAction => ({
+  type: types.NEXT_SONG_FAILURE,
+  payload: error
+});
+
+export const nextSongSuccess = (): models.NextSongSuccessAction => ({
+  type: types.NEXT_SONG_SUCCESS
+});

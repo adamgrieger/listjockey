@@ -22,6 +22,9 @@ export type RoomAction =
   | AddSongFailureAction
   | AddSongSuccessAction
   | UpdateQueueAction
+  | NextSongAction
+  | NextSongFailureAction
+  | NextSongSuccessAction
   ;
 
 // +----------+
@@ -147,4 +150,21 @@ export interface AddSongSuccessAction {
 export interface UpdateQueueAction {
   type: typeof types.UPDATE_QUEUE;
   payload: Song;
+}
+
+// +-----------+
+// | Next Song |
+// +-----------+
+
+export interface NextSongAction {
+  type: typeof types.NEXT_SONG;
+}
+
+export interface NextSongFailureAction {
+  type: typeof types.NEXT_SONG_FAILURE;
+  payload: Error;
+}
+
+export interface NextSongSuccessAction {
+  type: typeof types.NEXT_SONG_SUCCESS;
 }

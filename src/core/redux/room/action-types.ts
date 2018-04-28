@@ -23,3 +23,7 @@ export const ADD_SONG_FAILURE = 'ADD_SONG_FAILURE';
 export const ADD_SONG_SUCCESS = 'ADD_SONG_SUCCESS';
 
 export const UPDATE_QUEUE = 'UPDATE_QUEUE';
+
+export const NEXT_SONG = 'NEXT_SONG';
+export const NEXT_SONG_FAILURE = 'NEXT_SONG_FAILURE';
+export const NEXT_SONG_SUCCESS = 'NEXT_SONG_SUCCESS';

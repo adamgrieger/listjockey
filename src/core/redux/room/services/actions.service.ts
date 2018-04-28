@@ -24,4 +24,6 @@ export class RoomActions {
   public addSong = (song: Song) => this.ngRedux.dispatch(creators.addSong(song));
 
   public updateQueue = (song: Song) => this.ngRedux.dispatch(creators.updateQueue(song));
+
+  public nextSong = () => this.ngRedux.dispatch(creators.nextSong());
 }

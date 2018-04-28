@@ -29,6 +29,7 @@ export class RoomPage implements OnInit, OnDestroy {
   private onChatMessageReceived$: BroadcastEventListener<ChatMessage>;
   private onUserAdded$: BroadcastEventListener<User>;
   private onUserRemoved$: BroadcastEventListener<User>;
+  private onNextSong$: BroadcastEventListener<void>;
 
   private room$: Observable<Room>;
   private users$: Observable<User[]>;
@@ -84,6 +85,9 @@ export class RoomPage implements OnInit, OnDestroy {
     this.onUserRemoved$ = this.connection.listenFor<User>('remove_listener');
     this.onUserRemoved$.subscribe(listener => this.room.removeUser(listener));
 
+    this.onNextSong$ = this.connection.listenFor<void>('next_song');
+    this.onNextSong$.subscribe(() => this.room.nextSong());
+
     this.connection.start().then(conn => {
       conn.invoke('JoinRoom', `${ roomId }`);
     });
@@ -100,6 +104,7 @@ export class RoomPage implements OnInit, OnDestroy {
     this.onChatMessageReceived$.unsubscribe();
     this.onUserAdded$.unsubscribe();
     this.onUserRemoved$.unsubscribe();
+    this.onNextSong$.unsubscribe();
 
     this.connection.invoke('LeaveRoom', `${ roomId }`)
       .then(() => this.connection.stop());
