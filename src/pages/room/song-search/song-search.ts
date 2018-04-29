@@ -34,6 +34,10 @@ export class SongSearch implements OnInit, OnDestroy {
     }
   }
 
+  private clearSearch = () => {
+    this.search.clearSearch();
+  }
+
   private addSong = (track: SpotifyApi.TrackObjectFull) =>
     this.room.addSong({
       track_id: track.id,
