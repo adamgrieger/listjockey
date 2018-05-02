@@ -1,11 +1,28 @@
-<ion-card>
+<ion-card id="chat-box">
   <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-    <ion-list>
-      <ion-item *ngFor="let message of messages">
-        <p>{{ message.sender }}: {{ message.text }}</p>
-      </ion-item>
-    </ion-list>
-    <ion-input type="text" formControlName="message"></ion-input>
-    <button ion-button type="submit">Chat</button>
+    <div id="content-wrapper">
+
+      <ion-content>
+        <ion-item *ngFor="let message of messages">
+          <p><span id="message-sender">{{ message.sender }}</span>: {{ message.text }}</p>
+        </ion-item>
+      </ion-content>
+
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-input
+              type="text"
+              placeholder="Send a message"
+              formControlName="message">
+            </ion-input>
+          </ion-col>
+          <ion-col col-auto>
+            <button ion-button type="submit">Chat</button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+    </div>
   </form>
 </ion-card>

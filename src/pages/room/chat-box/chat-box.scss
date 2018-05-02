@@ -1,0 +1,16 @@
+#chat-box {
+  height: 500px;
+
+  ion-content, form, #content-wrapper, {
+    height: 100%;
+  }
+}
+
+#content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#message-sender {
+  color: #03a9f4;
+}

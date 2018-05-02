@@ -2,32 +2,32 @@
   <ion-list>
     <ion-item>
       <ion-row>
-        <ion-col col-3>
+        <ion-col col-6 col-lg-3>
           <p>Title</p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-6 col-lg-3>
           <p>Artist</p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-3 class="hide-mobile">
           <p>Album</p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-3 class="hide-mobile">
           <p>Duration</p>
         </ion-col>
       </ion-row>
     </ion-item>
     <ion-item *ngFor="let song of (room$ | async)?.play_queue?.songs">
       <ion-row>
-        <ion-col col-3>
+        <ion-col col-6 col-lg-3>
           <h2>{{ song.title }}</h2>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-6 col-lg-3>
           <h2>{{ song.artist }}</h2>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-3 class="hide-mobile">
           <h2>{{ song.album.title }}</h2>
         </ion-col>
-        <ion-col>
+        <ion-col col-3 class="hide-mobile">
           <h2>{{ secondsToTimestamp(song.duration) }}</h2>
         </ion-col>
       </ion-row>
