@@ -6,24 +6,39 @@
 
 <ion-content padding class="md-grey-50-background">
   <ion-row id="main-content">
+
     <ion-col col-12 col-lg-9>
-      <ion-row>
-        <ion-col class="hide-mobile">
-          <room-details [room]="room$ | async"></room-details>
-        </ion-col>
-        <ion-col>
-          <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
-        </ion-col>
-      </ion-row>
-      <song-search></song-search>
-      <song-queue></song-queue>
+      <div id="left-column-wrapper">
+
+        <ion-row>
+          <ion-col class="hide-mobile">
+            <room-details [room]="room$ | async"></room-details>
+          </ion-col>
+          <ion-col>
+            <now-playing [song]="(room$ | async)?.now_playing"></now-playing>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <song-search></song-search>
+        </ion-row>
+
+        <ion-row id="song-queue-row">
+          <song-queue></song-queue>
+        </ion-row>
+
+      </div>
     </ion-col>
-    <ion-col col-3 id="members-chat-col" class="hide-mobile">
-      <room-members [users]="users$ | async"></room-members>
-      <chat-box
-        [messages]="chatMessages$ | async"
-        (onMessageSent)="sendChatMessage($event)">
-      </chat-box>
+
+    <ion-col col-3 class="hide-mobile">
+      <div id="right-column-wrapper">
+        <room-members padding [users]="users$ | async"></room-members>
+        <chat-box padding
+          [messages]="chatMessages$ | async"
+          (onMessageSent)="sendChatMessage($event)">
+        </chat-box>
+      </div>
     </ion-col>
+
   </ion-row>
 </ion-content>
