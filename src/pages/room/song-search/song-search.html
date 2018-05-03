@@ -2,11 +2,13 @@
   (ionInput)="searchTracks($event.target.value)"
   (ionClear)="clearSearch()">
 </ion-searchbar>
-<ion-list>
-  <button ion-item
-    *ngFor="let track of tracks$ | async"
-    (click)="addSong(track)">
-    <h2>{{ track.name }}</h2>
-    <p>{{ track.artists[0].name }} • {{ track.album.name }}</p>
-  </button>
-</ion-list>
+<ion-card>
+  <ion-list>
+    <button ion-item
+      *ngFor="let track of tracks$ | async"
+      (click)="addSong(track)">
+      <h2>{{ track.name }}</h2>
+      <p>{{ track.artists[0].name }} • {{ track.album.name }}</p>
+    </button>
+  </ion-list>
+</ion-card>
