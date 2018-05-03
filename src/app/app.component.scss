@@ -18,3 +18,9 @@
 .md-grey-50-background {
   background-color: #fafafa;
 }
+
+h2, p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
