@@ -26,7 +26,8 @@ export class SongQueue implements OnInit {
   private secondsToTimestamp = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
+    const paddedSeconds = seconds < 10 ? `0${ seconds }` : seconds;
 
-    return `${ minutes }:${ seconds }`;
+    return `${ minutes }:${ paddedSeconds }`;
   }
 }
