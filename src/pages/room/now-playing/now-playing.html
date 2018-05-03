@@ -1,9 +1,16 @@
 <ion-card>
   <ion-item>
+
     <ion-thumbnail item-start>
-      <img [src]="song?.album?.cover_art">
+      <img *ngIf="song === null" src="assets/icon/icon.png">
+      <img *ngIf="song !== null" [src]="song.album.cover_art">
     </ion-thumbnail>
-    <h2>{{ song?.title }}</h2>
-    <p>{{ song?.artist }}</p>
+
+    <h2 *ngIf="song === null">Empty play queue</h2>
+    <h2 *ngIf="song !== null">{{ song.title }}</h2>
+
+    <p *ngIf="song === null">Search to add songs!</p>
+    <p *ngIf="song !== null">{{ song.artist }}</p>
+
   </ion-item>
 </ion-card>

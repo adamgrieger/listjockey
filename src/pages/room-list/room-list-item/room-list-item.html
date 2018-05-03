@@ -9,16 +9,24 @@
   </ion-item>
 
   <ion-item>
+
     <ion-thumbnail item-start>
-      <img src="{{ listing.now_playing?.album.cover_art }}">
+      <img *ngIf="listing.now_playing === null" src="assets/icon/icon.png">
+      <img *ngIf="listing.now_playing !== null" [src]="listing.now_playing.album.cover_art">
     </ion-thumbnail>
-    <h2>{{ listing.now_playing?.title }}</h2>
-    <p>{{ listing.now_playing?.artist }}</p>
+
+    <h2 *ngIf="listing.now_playing === null">Empty play queue</h2>
+    <h2 *ngIf="listing.now_playing !== null">{{ listing.now_playing.title }}</h2>
+
+    <p *ngIf="listing.now_playing === null">Join to add songs!</p>
+    <p *ngIf="listing.now_playing !== null">{{ listing.now_playing.artist }}</p>
+
     <button ion-button clear item-end
       (click)="join(listing.id)"
       [disabled]="!(accessToken$ | async)">
       Join
     </button>
+
   </ion-item>
 
   <ion-card-content>
