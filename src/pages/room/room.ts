@@ -113,16 +113,12 @@ export class RoomPage implements OnInit, OnDestroy {
   private sendChatMessage = (content: string) => {
     if (content) {
       const state = this.ngRedux.getState();
-
-      const message: ChatMessage = {
-        sender: state.session.user.id,
-        text: content
-      };
+      const user = state.session.user;
 
       this.connection.invoke(
         'ChatMessage',
         String(state.room.current.id),
-        state.session.user.id,
+        user.display_name ? user.display_name : user.id,
         content
       );
     }
